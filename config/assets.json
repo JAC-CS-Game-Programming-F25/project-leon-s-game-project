@@ -1,0 +1,57 @@
+{
+  "images": [
+    {
+      "name": "tiles",
+      "path": "./../assets/images/tiles.png",
+      "width": 208,
+      "height": 240
+    },
+    {
+      "name": "hornet",
+      "path": "./../assets/images/hornet.png",
+      "width": 160,
+      "height": 32
+    },
+    {
+      "name": "hornetdownslash",
+      "path": "./../assets/images/hornetdownslash.png",
+      "width": 128,
+      "height": 32
+    },
+    {
+      "name": "hornethorizontal",
+      "path": "./../assets/images/hornethorizontal.png",
+      "width": 128,
+      "height": 32
+    },
+    {
+      "name": "background",
+      "path": "./../assets/images/backgroundFullUpscaled.png",
+      "width": 569,
+      "height": 320
+    },
+    {
+      "name": "hornetfull",
+      "path": "./../assets/images/hornetcollectivesprites.png",
+      "width": 192,
+      "height": 96
+    }
+  ],
+  "fonts": [],
+  "sounds": [
+    {
+      "name": "28-LastJudge",
+      "path": "./../assets/sounds/28-LastJudge.mp3",
+      "size": 25,
+      "volume": 1,
+      "loop": true
+    },
+    {
+      "name": "27-BlastedSteps",
+      "path": "./../assets/sounds/27-BlastedSteps.mp3",
+      "size": 25,
+      "volume": 1,
+      "loop": true
+    }
+  ]
+}
