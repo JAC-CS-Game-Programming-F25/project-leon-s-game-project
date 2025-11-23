@@ -69,32 +69,32 @@ export const debugOptions = {
 };
 
 // Function to toggle a debug option
-export function toggleDebugOption(option) {
-	debugOptions[option] = !debugOptions[option];
-	localStorage.setItem(`debug_${option}`, debugOptions[option]);
-}
+// export function toggleDebugOption(option) {
+// 	debugOptions[option] = !debugOptions[option];
+// 	localStorage.setItem(`debug_${option}`, debugOptions[option]);
+// }
 
-// Function to initialize debug options from localStorage
-function initializeDebugOptions() {
-	Object.keys(debugOptions).forEach((option) => {
-		const storedValue = localStorage.getItem(`debug_${option}`);
-		if (storedValue !== null) {
-			debugOptions[option] = storedValue === 'true';
-		}
-	});
-}
+// // Function to initialize debug options from localStorage
+// function initializeDebugOptions() {
+// 	Object.keys(debugOptions).forEach((option) => {
+// 		const storedValue = localStorage.getItem(`debug_${option}`);
+// 		if (storedValue !== null) {
+// 			debugOptions[option] = storedValue === 'true';
+// 		}
+// 	});
+// }
 
-// Event listener for debug checkboxes
-initializeDebugOptions();
+// // Event listener for debug checkboxes
+// initializeDebugOptions();
 
-const debugCheckboxes = document.querySelectorAll(
-	'#controlPanel .debug input[type="checkbox"]'
-);
+// const debugCheckboxes = document.querySelectorAll(
+// 	'#controlPanel .debug input[type="checkbox"]'
+// );
 
-debugCheckboxes.forEach((checkbox) => {
-	checkbox.checked = debugOptions[checkbox.name];
+// debugCheckboxes.forEach((checkbox) => {
+// 	checkbox.checked = debugOptions[checkbox.name];
 
-	checkbox.addEventListener('change', () => {
-		toggleDebugOption(checkbox.name);
-	});
-});
+// 	checkbox.addEventListener('change', () => {
+// 		toggleDebugOption(checkbox.name);
+// 	});
+// });

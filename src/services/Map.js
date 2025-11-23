@@ -40,9 +40,6 @@ export default class Map {
 
 		// Initialize arrays to store special entities
 		this.blocks = [];
-		this.goombas = [];
-		this.coins = [];
-		this.mushrooms = [];
 		this.damageColliders = [];
 
 		// Process the map to create special entities
@@ -78,11 +75,6 @@ export default class Map {
 	 * @param {number} dt - The time passed since the last update.
 	 */
 	update(dt) {
-		this.blocks.forEach((block) => block.update(dt));
-		this.goombas.forEach((goomba) => goomba.update(dt));
-		// // added these two
-		this.coins.forEach((coin) => coin.update(dt));
-		this.mushrooms.forEach((mushroom) => mushroom.update(dt));
 		this.damageColliders.forEach((collider) => collider.update(dt));
 
 		//this.goombas = this.goombas.filter((goomba) => !goomba.isDead);
@@ -98,13 +90,6 @@ export default class Map {
 	 */
 	render(context) {
 		this.foregroundLayer.render();
-		this.blocks.forEach((block) => block.render(context));
-		this.goombas.forEach((goomba) => goomba.render(context));
-		//added these two
-		this.coins.forEach((coin) => coin.render(context));
-		this.mushrooms.forEach((mushroom) => mushroom.render(context));
-
-
 		this.damageColliders.forEach((collider) => collider.render(context));
 
 

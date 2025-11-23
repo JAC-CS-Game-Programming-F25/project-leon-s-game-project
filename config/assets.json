@@ -7,24 +7,6 @@
       "height": 240
     },
     {
-      "name": "hornet",
-      "path": "./../assets/images/hornet.png",
-      "width": 160,
-      "height": 32
-    },
-    {
-      "name": "hornetdownslash",
-      "path": "./../assets/images/hornetdownslash.png",
-      "width": 128,
-      "height": 32
-    },
-    {
-      "name": "hornethorizontal",
-      "path": "./../assets/images/hornethorizontal.png",
-      "width": 128,
-      "height": 32
-    },
-    {
       "name": "background",
       "path": "./../assets/images/backgroundFullUpscaled.png",
       "width": 569,
