@@ -2,7 +2,8 @@ import PlayerStateName from "../../enums/PlayerStateName.js";
 import DamageCollider from "../DamageCollider.js";
 import PlayerState from "./PlayerState.js"
 
-export default class PlayerSlashingState extends PlayerState {
+export default class PlayerDownSlashingState extends PlayerState {
+    static HORIZONTAL_OFFSET = 11;
     constructor(player) {
         super(player);
         this.isMovingRight = false;
@@ -11,7 +12,7 @@ export default class PlayerSlashingState extends PlayerState {
 
     enter() {
         // play slash sound
-        this.player.currentAnimation = this.player.playerAnimations.slash;
+        this.player.currentAnimation = this.player.playerAnimations.down;
         this.player.currentAnimation.refresh();
 
         this.savedVelocityX = this.player.velocity.x;
@@ -40,22 +41,19 @@ export default class PlayerSlashingState extends PlayerState {
     }
 
     spawnSlashHitbox() {
-        let effectSprite = this.player.slashEffects.baseL[0];
+        let effectSprite = this.player.slashEffects.downL[0];
         const width = effectSprite.width;
         const height = effectSprite.height;
 
         // Position hitbox relative to player
-        let x = this.player.position.x;
-        let y = this.player.position.y + this.player.dimensions.y / 2 - height / 2;
+        let x = this.player.position.x - PlayerDownSlashingState.HORIZONTAL_OFFSET;
+        let y = this.player.position.y + this.player.dimensions.y; // / 2 - height / 2;
 
         // If facing right, place hitbox in front
         if (this.player.facingRight) {
-            x += this.player.dimensions.x; 
-            effectSprite = this.player.slashEffects.baseR[0]
+            effectSprite = this.player.slashEffects.downR[0]
         }
-        else {
-            x -= width; 
-        }
+
 
         const hitbox = new DamageCollider(
             x,

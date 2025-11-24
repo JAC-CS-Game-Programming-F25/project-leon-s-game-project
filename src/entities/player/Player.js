@@ -12,6 +12,7 @@ import PlayerRunningState from "./PlayerRunningState.js";
 import PlayerJumpingState from "./PlayerJumpingState.js";
 import PlayerFallingState from "./PlayerFallingState.js";
 import PlayerSlashingState from "./PlayerSlashingState.js";
+import PlayerDownSlashingState from "./PlayerDownSlashingState.js";
 
 export default class Player extends Entity {
     constructor(x, y, width, height, map) {
@@ -37,7 +38,7 @@ export default class Player extends Entity {
 			run: new Animation(this.playerSprites.run, 0.1),
 			jump: new Animation(this.playerSprites.jump),
 			fall: new Animation(this.playerSprites.fall),
-            slash: new Animation(this.playerSprites.slash, 0.1, 1),
+            slash: new Animation(this.playerSprites.slash, 0.2, 1),
             down: new Animation(this.playerSprites.downslash, 0.2, 1),
             bind: new Animation(this.playerSprites.bind),
             death: new Animation(this.playerSprites.death),
@@ -58,6 +59,10 @@ export default class Player extends Entity {
         this.stateMachine.add(
             PlayerStateName.Slashing,
             new PlayerSlashingState(this)
+        );
+        this.stateMachine.add(
+            PlayerStateName.Downslashing,
+            new PlayerDownSlashingState(this)
         );
         this.stateMachine.add(
             PlayerStateName.Running,

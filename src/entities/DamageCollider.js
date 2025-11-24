@@ -1,3 +1,4 @@
+import { debugOptions } from "../globals.js";
 import Entity from "./Entity.js";
 
 export default class DamageCollider extends Entity {
@@ -20,6 +21,30 @@ export default class DamageCollider extends Entity {
     render(context) {
         if (this.sprite) {
             this.sprite.render(this.position.x, this.position.y);
+            // If debug mode is enabled, render additional debug information
+            if (debugOptions.playerCollision) {
+                this.renderDebug(context);
+            }
         }
+        
     }
+
+    /**
+         * Renders debug information for the player and surrounding tiles.
+         * This method visualizes the player's bounding box and nearby tiles,
+         * highlighting potential collision areas.
+         *
+         * @param {CanvasRenderingContext2D} context - The rendering context.
+         */
+        renderDebug(context) {
+    
+            // Render a blue outline around the player's bounding box
+            context.strokeStyle = 'red';
+            context.strokeRect(
+                this.position.x,
+                this.position.y,
+                this.dimensions.x,
+                this.dimensions.y
+            );
+        }
 }

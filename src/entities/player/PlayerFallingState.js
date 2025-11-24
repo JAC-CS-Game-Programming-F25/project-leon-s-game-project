@@ -54,5 +54,8 @@ export default class PlayerFallingState extends PlayerState {
 				this.player.stateMachine.change(PlayerStateName.Running);
 			}
 		}
+		if (input.isKeyHeld(Input.KEYS.S) && input.isKeyPressed(Input.KEYS.L)) {
+			this.player.stateMachine.change(PlayerStateName.Downslashing);
+		}
 	}
 }

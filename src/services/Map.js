@@ -81,7 +81,7 @@ export default class Map {
 		// added these two
 		// this.coins = this.coins.filter((coin) => !coin.isHit);
 		// this.mushrooms = this.mushrooms.filter((mushroom) => !mushroom.isPickedUp);
-		this.damageColliders = this.damageColliders.filter((collider) => !collider.isActive);
+		this.damageColliders = this.damageColliders.filter((collider) => collider.isActive);
 	}
 
 	/**

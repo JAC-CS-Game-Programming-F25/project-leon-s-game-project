@@ -69,5 +69,8 @@ export default class PlayerJumpingState extends PlayerState {
 		if (input.isKeyPressed(Input.KEYS.L)) {
 			this.player.stateMachine.change(PlayerStateName.Slashing);
 		}
+		if (input.isKeyHeld(Input.KEYS.S) && input.isKeyPressed(Input.KEYS.L)) {
+			this.player.stateMachine.change(PlayerStateName.Downslashing);
+		}
 	}
 }
