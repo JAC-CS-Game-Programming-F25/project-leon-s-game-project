@@ -31,11 +31,36 @@
 
 # Diagrams
 
-## State Diagram
+## State Diagrams
+
+### Player (Honnet)
+
+![Player State Diagram](./assets/designproposalassets/Player%20State%20Diagram.drawio.png)
+
+### Final Jury:
+
+![Final Jury State Diagram](./assets/designproposalassets/Final%20Jury%20State%20Diagram.drawio.png)
 
 ## Class Diagram
 
+![Class Diagram](./assets/designproposalassets/SongSilk%20Class%20diagram.drawio.png)
+
 ## Wireframe
+
+### Base Gameplay
+
+![Base Gameplay](./assets/designproposalassets/baseGameplay.png)
+
+# **_ACTUAL GAMEPLAY_**
+
+[Gameplay Video](./assets/designproposalassets/Songsilk-Wireframe.mp4)
+
+### Animation concepts
+
+Spin
+![FJ Spin](./assets/designproposalassets/Final%20Jury%20spin%20anim%20concept.gif)
+Slam
+![FJ Slam](./assets/designproposalassets/Final%20Jury%20slam%20anim%20concept.gif)
 
 ## Assets
 
@@ -57,6 +82,12 @@
 
 ### Fonts
 
+for fonts, I'll most likely be using the Trajan Pro font to emulate the writing style used in Hollow Knight and in Silksong
+
+- [Hollow Knight](https://prashantmohta.github.io/TitleGenerator.HollowKnight/?title=5&blur=true&font=1&bold=true&super=Hallowed%20Steps&main=Final%20Jury&) Font Generator
+- [Trajan Pro](https://online-fonts.com/fonts/trajan-pro)
+
 ### Sounds
 
-For the music, I have used the official OSTs from Silksong (Which I legally) for the Blasted Steps ambiance and the Last Judge theme.
+For the music, I have used the official OSTs from Silksong (Which I legally bought with the actual game) for the Blasted Steps ambiance and the Last Judge theme.
+The sword slash effects were taken from the "Sounds of Pharloom" asset repository for Silksong modding

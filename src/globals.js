@@ -64,7 +64,7 @@ fonts.load(assetDefinition.fonts);
 export const debugOptions = {
 	mapGrid: false,
 	cameraCrosshair: false,
-	playerCollision: true,
+	playerCollision: false,
 	watchPanel: false,
 };
 
