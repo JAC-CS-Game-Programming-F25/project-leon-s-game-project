@@ -38,8 +38,8 @@ export default class Player extends Entity {
 			run: new Animation(this.playerSprites.run, 0.1),
 			jump: new Animation(this.playerSprites.jump),
 			fall: new Animation(this.playerSprites.fall),
-            slash: new Animation(this.playerSprites.slash, 0.2, 1),
-            down: new Animation(this.playerSprites.downslash, 0.2, 1),
+            slash: new Animation(this.playerSprites.slash, 0.1, 1),
+            down: new Animation(this.playerSprites.downslash, 0.1, 1),
             bind: new Animation(this.playerSprites.bind),
             death: new Animation(this.playerSprites.death),
         };

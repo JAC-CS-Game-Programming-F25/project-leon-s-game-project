@@ -65,6 +65,7 @@ export const debugOptions = {
 	mapGrid: false,
 	cameraCrosshair: false,
 	playerCollision: false,
+	bossCollision: true,
 	watchPanel: false,
 };
 

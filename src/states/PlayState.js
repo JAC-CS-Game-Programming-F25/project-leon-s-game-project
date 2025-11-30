@@ -10,6 +10,7 @@ import MusicName from '../enums/MusicName.js';
 import Particle from '../../lib/Particle.js';
 import { getRandomNegativeNumber } from '../../lib/Random.js';
 import Vector from '../../lib/Vector.js';
+import FinalJury from '../entities/boss/finaljury.js';
 
 /**
  * Represents the main play state of the game.
@@ -25,6 +26,9 @@ export default class PlayState extends State {
 
 		this.map = new Map(mapDefinition);
 		this.player = new Player(50, 150, 11, 24, this.map);
+
+		this.boss = new FinalJury(350, 30, 29, 50, this.map);
+
 		this.camera = new Camera(
 			this.player,
 			canvas.width,
@@ -62,6 +66,7 @@ export default class PlayState extends State {
 		this.map.update(dt);
 		this.camera.update(dt);
 		this.player.update(dt);
+		this.boss.update(dt);
 
 		const spawnX = this.camera.position.x-150 + Math.random() * this.camera.viewportWidth;
 
@@ -94,6 +99,7 @@ export default class PlayState extends State {
 
 		this.map.render(context);
 		this.player.render(context);
+		this.boss.render(context);
 
 		this.rain.forEach(particle => {
 			particle.render(context);

@@ -3,7 +3,6 @@ import Input from '../../../lib/Input.js';
 import { input, sounds } from '../../globals.js';
 import PlayerStateName from '../../enums/PlayerStateName.js';
 import Player from './Player.js';
-import MusicName from '../../enums/MusicName.js';
 
 /**
  * Represents the idling state of the player.
@@ -24,12 +23,7 @@ export default class PlayerIdlingState extends PlayerState {
 	enter() {
 		this.player.velocity.x = 0;
 		this.player.velocity.y = 0;
-		// // this.player.currentAnimation = this.player.smallAnimations.idle;
-		// if(this.player.isBig) {
-		// 	this.player.currentAnimation = this.player.bigAnimations.idle;
-		// } else{
-		// 	this.player.currentAnimation = this.player.smallAnimations.idle;
-		// }
+
 		this.player.currentAnimation = this.player.playerAnimations.idle;
 	}
 

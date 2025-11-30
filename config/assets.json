@@ -17,6 +17,12 @@
       "path": "./../assets/images/hornetcollectivesprites.png",
       "width": 192,
       "height": 96
+    },
+    {
+      "name": "finaljury",
+      "path": "./../assets/images/LastJudge.png",
+      "width": 208,
+      "height": 256
     }
   ],
   "fonts": [],
