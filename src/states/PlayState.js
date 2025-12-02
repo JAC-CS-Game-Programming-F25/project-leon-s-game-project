@@ -11,6 +11,7 @@ import Particle from '../../lib/Particle.js';
 import { getRandomNegativeNumber } from '../../lib/Random.js';
 import Vector from '../../lib/Vector.js';
 import FinalJury from '../entities/boss/finaljury.js';
+import UserInterface from '../services/UserInterface.js';
 
 /**
  * Represents the main play state of the game.
@@ -36,6 +37,8 @@ export default class PlayState extends State {
 			this.map.width * Tile.SIZE,
 			this.map.height * Tile.SIZE
 		);
+
+		this.UI = new UserInterface(this.player);
 
 		// Initialize debug tools
 		this.debug = new Debug();
@@ -67,6 +70,8 @@ export default class PlayState extends State {
 		this.camera.update(dt);
 		this.player.update(dt);
 		this.boss.update(dt);
+
+		this.UI.update(dt);
 
 		const spawnX = this.camera.position.x-150 + Math.random() * this.camera.viewportWidth;
 
@@ -101,11 +106,15 @@ export default class PlayState extends State {
 		this.player.render(context);
 		this.boss.render(context);
 
+		
+
 		this.rain.forEach(particle => {
 			particle.render(context);
 		});
 
 		this.camera.resetTransform(context);
+
+		this.UI.render(context);
 
 		if (debugOptions.cameraCrosshair) {
 			this.renderCameraGuidelines(context);

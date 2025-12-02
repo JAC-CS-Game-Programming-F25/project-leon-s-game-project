@@ -23,6 +23,18 @@
       "path": "./../assets/images/LastJudge.png",
       "width": 208,
       "height": 256
+    },
+    {
+      "name": "healthbar",
+      "path": "./../assets/images/UIassets/HealthbarAnim.png",
+      "width": 335,
+      "height": 852
+    },
+    {
+      "name": "fullmask",
+      "path": "./../assets/images/UIassets/fullMask.png",
+      "width": 170,
+      "height": 2200
     }
   ],
   "fonts": [],

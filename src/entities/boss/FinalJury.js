@@ -1,4 +1,4 @@
-import { finalJurySpriteConfig, loadFinalJurySptites } from "../../../config/SpriteConfig.js";
+import { finalJurySpriteConfig, loadFinalJurySprites } from "../../../config/SpriteConfig.js";
 import Animation from "../../../lib/Animation.js";
 import StateMachine from "../../../lib/StateMachine.js";
 import Vector from "../../../lib/Vector.js";
@@ -23,7 +23,7 @@ export default class FinalJury extends Entity {
         this.player = player;
         this.facingRight = false;
 
-        this.FinalJurySprites = loadFinalJurySptites(
+        this.FinalJurySprites = loadFinalJurySprites(
             images.get(ImageName.FinalJury),
             finalJurySpriteConfig
         );
@@ -32,7 +32,7 @@ export default class FinalJury extends Entity {
             idle: new Animation(this.FinalJurySprites.idle),
             jump: new Animation(this.FinalJurySprites.jump),
             slam: new Animation(this.FinalJurySprites.slam),
-            whip: new Animation(this.FinalJurySprites.whip),
+            whip: new Animation(this.FinalJurySprites.whip, 0.1, 1),
             spin: new Animation(this.FinalJurySprites.spin),
             slide: new Animation(this.FinalJurySprites.slide),
             stun: new Animation(this.FinalJurySprites.stun),

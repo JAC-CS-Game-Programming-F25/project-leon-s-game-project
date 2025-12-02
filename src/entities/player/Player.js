@@ -13,20 +13,23 @@ import PlayerJumpingState from "./PlayerJumpingState.js";
 import PlayerFallingState from "./PlayerFallingState.js";
 import PlayerSlashingState from "./PlayerSlashingState.js";
 import PlayerDownSlashingState from "./PlayerDownSlashingState.js";
+import { oneInXChance } from "../../../lib/Random.js";
 
 export default class Player extends Entity {
     constructor(x, y, width, height, map) {
         super(x, y, width, height);
         this.initialPosition = new Vector(x, y);
         this.position = new Vector(x, y);
-		this.dimensions = new Vector(width, height);
+        this.dimensions = new Vector(width, height);
         this.renderOffset = {
-			x: 10,
-			y: 8,
-		}
-		this.velocity = new Vector(0, 0);
-		this.map = map;
-		this.facingRight = true;
+            x: 10,
+            y: 8,
+        }
+        this.velocity = new Vector(0, 0);
+        this.map = map;
+        this.facingRight = true;
+
+        this.health = 5;
 
         this.playerSprites = loadPlayerSprites(
             images.get(ImageName.HornetFull),
@@ -35,9 +38,9 @@ export default class Player extends Entity {
 
         this.playerAnimations = {
             idle: new Animation(this.playerSprites.idle),
-			run: new Animation(this.playerSprites.run, 0.1),
-			jump: new Animation(this.playerSprites.jump),
-			fall: new Animation(this.playerSprites.fall),
+            run: new Animation(this.playerSprites.run, 0.1),
+            jump: new Animation(this.playerSprites.jump),
+            fall: new Animation(this.playerSprites.fall),
             slash: new Animation(this.playerSprites.slash, 0.1, 1),
             down: new Animation(this.playerSprites.downslash, 0.1, 1),
             bind: new Animation(this.playerSprites.bind),
@@ -69,13 +72,13 @@ export default class Player extends Entity {
             new PlayerRunningState(this)
         );
         this.stateMachine.add(
-			PlayerStateName.Jumping,
-			new PlayerJumpingState(this)
-		);
+            PlayerStateName.Jumping,
+            new PlayerJumpingState(this)
+        );
         this.stateMachine.add(
-			PlayerStateName.Falling,
-			new PlayerFallingState(this)
-		);
+            PlayerStateName.Falling,
+            new PlayerFallingState(this)
+        );
         this.stateMachine.add(
             PlayerStateName.Idling,
             new PlayerIdlingState(this)
@@ -83,24 +86,34 @@ export default class Player extends Entity {
     }
 
     /**
-	 * Updates the player's state.
-	 * @param {number} dt - The time passed since the last update.
-	 */
+     * Updates the player's state.
+     * @param {number} dt - The time passed since the last update.
+     */
     update(dt) {
-		if(this.isDying) return
-		this.stateMachine.update(dt);
+        if (this.isDying) return
+        if (oneInXChance(100)) {
+            if (this.health > 0) {
+                this.health--;
+            }
+        }
+        // if (oneInXChance(75)) {
+        //     if (this.health < 5) {
+        //         this.health++;
+        //     }
+        // }
+        this.stateMachine.update(dt);
 
-	}
+    }
 
     /**
-	 * Renders the player.
-	 * @param {CanvasRenderingContext2D} context - The rendering context.
-	 */
-	render(context) {
+     * Renders the player.
+     * @param {CanvasRenderingContext2D} context - The rendering context.
+     */
+    render(context) {
         this.activeHitboxes.forEach(hitbox => {
             hitbox.render(context);
         });
         this.stateMachine.render(context);
-		
-	}
+
+    }
 }

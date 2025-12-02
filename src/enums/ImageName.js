@@ -1,11 +1,10 @@
 const ImageName = {
 	Tiles: 'tiles',
-	// Hornet: 'hornet',
 	Background: 'background',
-	// Slash: 'hornethorizontal',
-	// DownSlash: 'hornetdownslash',
 	HornetFull: 'hornetfull',
-	FinalJury: 'finaljury'
+	FinalJury: 'finaljury',
+	Healthbar: 'healthbar',
+	FullMask: 'fullmask'
 };
 
 export default ImageName;

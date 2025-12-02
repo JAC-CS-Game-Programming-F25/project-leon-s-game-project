@@ -101,7 +101,53 @@ export const finalJurySpriteConfig = {
 	]
 }
 
-export function loadFinalJurySptites(spriteSheet, spriteConfig) {
+export function loadFinalJurySprites(spriteSheet, spriteConfig) {
+	const sprites = {};
+
+	for (const [animationName, frames] of Object.entries(spriteConfig)) {
+		sprites[animationName] = frames.map(
+			(frame) =>
+				new Sprite(
+					spriteSheet,
+					frame.x,
+					frame.y,
+					frame.width,
+					frame.height
+				)
+		);
+	}
+
+	return sprites;
+}
+
+export const UIspriteConfig = {
+	healthbarspawn: [
+		{x: 0, y: 0, width: 335, height: 142},
+		{x: 0, y: 142, width: 335, height: 142},
+		{x: 0, y: 284, width: 335, height: 142},
+		{x: 0, y: 426, width: 335, height: 142},
+		{x: 0, y: 568, width: 335, height: 142},
+		{x: 0, y: 710, width: 335, height: 142},
+	],
+}
+export const HealthbarMaskConfig = {
+	mask: [
+		{x: 0, y: 0, width: 170, height: 275}
+	],
+	breakanimation: [
+		{x: 0, y: 275, width: 170, height: 275},
+		{x: 0, y: 550, width: 170, height: 275},
+		{x: 0, y: 825, width: 170, height: 275},
+		{x: 0, y: 1100, width: 170, height: 275},
+		{x: 0, y: 1375, width: 170, height: 275},
+		{x: 0, y: 1650, width: 170, height: 275}
+	],
+	maskoutline: [
+		{x: 0, y: 1925, width: 170, height: 275}
+	],
+}
+
+export function loadUISprites(spriteSheet, spriteConfig) {
 	const sprites = {};
 
 	for (const [animationName, frames] of Object.entries(spriteConfig)) {
