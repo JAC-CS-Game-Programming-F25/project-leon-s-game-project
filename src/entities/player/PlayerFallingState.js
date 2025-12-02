@@ -37,6 +37,7 @@ export default class PlayerFallingState extends PlayerState {
 		super.update(dt);
 
 		this.handleHorizontalMovement();
+		this.handleInput()
 		this.checkTransitions();
 	}
 
@@ -44,15 +45,21 @@ export default class PlayerFallingState extends PlayerState {
 	 * Checks for state transitions.
 	 */
 	checkTransitions() {
-		if (input.isKeyPressed(Input.KEYS.L)) {
-			this.player.stateMachine.change(PlayerStateName.Slashing);
-		}
+		
 		if (this.player.isOnGround) {
 			if (Math.abs(this.player.velocity.x) < 0.1) {
 				this.player.stateMachine.change(PlayerStateName.Idling);
 			} else {
 				this.player.stateMachine.change(PlayerStateName.Running);
 			}
+		}
+		
+	}
+	handleInput(){
+		super.handleInput();
+
+		if (input.isKeyPressed(Input.KEYS.L)) {
+			this.player.stateMachine.change(PlayerStateName.Slashing);
 		}
 		if (input.isKeyHeld(Input.KEYS.S) && input.isKeyPressed(Input.KEYS.L)) {
 			this.player.stateMachine.change(PlayerStateName.Downslashing);

@@ -40,6 +40,7 @@ export default class PlayerIdlingState extends PlayerState {
 	 * Handles player input.
 	 */
 	handleInput() {
+		super.handleInput();
 		if (input.isKeyPressed(Input.KEYS.SPACE)) {
 			this.player.stateMachine.change(PlayerStateName.Jumping);
 		}

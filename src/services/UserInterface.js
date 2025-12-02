@@ -19,11 +19,14 @@ export default class UserInterface {
         this.maskBreakSprites = this.Mask.breakanimation;
 
         this.masks = [];
-        for (let i = 0; i < player.health; i++) {
+        for (let i = 0; i < player.totalHealth; i++) {
             this.masks.push({
                 scale: 0,
+                fillMask: this.maskSprite,
+                emptyMask: this.maskOutline,
                 breakAnim: null,
-                isShattering: false
+                isShattering: false,
+                isEmpty: false,
             });
         }
         this.isInitialized = false;
@@ -76,35 +79,61 @@ export default class UserInterface {
     }
 
     syncMasksToPlayerHealth() {
-        const hp = this.player.health;
+    const hp = this.player.health;
 
-        for (let i = 0; i < this.masks.length; i++) {
-            const mask = this.masks[i];
+    for (let i = 0; i < this.masks.length; i++) {
+        const mask = this.masks[i];
 
-            if (i < hp && mask.scale !== 1) {
-                // Tween in (heal)
+        // -----------------------------------------
+        // HEAL — Segment should be FULL again
+        // -----------------------------------------
+        if (i < hp) {
+
+            // Reset empty/shattered state so it can break again later
+            if (mask.isEmpty) {
+                mask.isEmpty = false;
+                mask.isShattering = false;
+                mask.breakAnim = null;
+            }
+
+            // Tween in if not full
+            if (mask.scale !== 1) {
                 timer.tween(mask, { scale: 1 }, 0.2, Easing.outBack);
             }
-            else if (i >= hp && mask.scale !== 0) {
-                // Play shatter animation once when taking damage
-                if (!mask.isShattering) {
-                    mask.isShattering = true;
-                    mask.breakAnim = new Animation(
-                        this.maskBreakSprites,
-                        0.04,
-                        1,       // plays once
-                        () => {
-                            mask.breakAnim = null;
-                            mask.isShattering = false;
-                        }
-                    );
-                }
 
-                // Tween to 0 (disappear)
-                timer.tween(mask, { scale: 0 }, 0.15, Easing.inBack);
+            continue;
+        }
+
+        // -----------------------------------------
+        // DAMAGE — segment should break
+        // -----------------------------------------
+        if (i >= hp && mask.scale !== 0) {
+
+            // If already empty, skip shatter animation
+            if (mask.isEmpty) {
+                mask.scale = 0;
+                continue;
             }
+
+            // Trigger shatter only once
+            if (!mask.isShattering) {
+                mask.isShattering = true;
+                mask.breakAnim = new Animation(
+                    this.maskBreakSprites,
+                    0.08,
+                    1,
+                    () => {
+                        mask.breakAnim = null;
+                        mask.isShattering = false;
+                        mask.isEmpty = true;  // now it's officially empty
+                    }
+                );
+            }
+
+            timer.tween(mask, { scale: 0 }, 0.15, Easing.inBack);
         }
     }
+}
 
     render(context) {
         context.save();
@@ -112,8 +141,8 @@ export default class UserInterface {
         
 
         const scale = 0.2;
-        const x = 20;
-        const y = 20;
+        const x = 0;
+        const y = 0;
         context.scale(scale,scale);
         if (!this.hasPlayedIntro) {
             this.renderInitialAnimation(x, y);
@@ -134,7 +163,9 @@ export default class UserInterface {
         this.UISprites.healthbarspawn[5].render(x, y);
 
         // Draw mask segments
-        const offsetX = 140; // distance per mask
+        const offsetX = 100; // distance per mask
+        const UIOffsetX = 150; // x offset for full healthbar
+        const UIOffsetY = -40; // y offset for full healthbar
 
         const scale = 0.7;
         context.scale(scale,scale);
@@ -144,26 +175,31 @@ export default class UserInterface {
             const mx = x + i * offsetX;
 
             // Draw outline first (always)
-            this.maskOutline.render(mx, y);
+            mask.emptyMask.render(mx + UIOffsetX, y + UIOffsetY);
 
+
+            // Draw shatter animation over mask
+            if (mask.breakAnim && !mask.isEmpty) {
+                if(mask.breakAnim.isDone()) {
+                    mask.breakAnim = null;
+                    mask.isShattering = false;
+                    mask.isEmpty = true;
+                } else {
+                    mask.breakAnim.getCurrentFrame().render(mx + UIOffsetX, y + UIOffsetY);
+                    continue;
+                }
+            } 
             // Draw filled mask (scaled)
             if (mask.scale > 0) {
                 context.save();
-                context.translate(mx + this.maskSprite.width / 2, y + this.maskSprite.height / 2);
+                context.translate(mx + this.maskSprite.width / 2 + UIOffsetX, y + this.maskSprite.height / 2 + UIOffsetY);
                 context.scale(mask.scale, mask.scale);
                 context.translate(-this.maskSprite.width / 2, -this.maskSprite.height / 2);
-                this.maskSprite.render(0, 0);
+                mask.fillMask.render(0, 0);
                 context.restore();
             }
 
-            // Draw shatter animation over mask
-            if (mask.breakAnim) {
-                if(mask.breakAnim.isDone()) {
-                    this.maskOutline.render(mx, y)
-                } else {
-                    mask.breakAnim.getCurrentFrame().render(mx, y);
-                }
-            } 
+            
         }
     }
 }

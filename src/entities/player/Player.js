@@ -4,7 +4,7 @@ import Collider from "../../../lib/Collider.js";
 import Animation from '../../../lib/Animation.js';
 import ImageName from "../../enums/ImageName.js";
 import Entity from "../Entity.js";
-import { images } from '../../globals.js';
+import { images, timer } from '../../globals.js';
 import StateMachine from "../../../lib/StateMachine.js";
 import PlayerStateName from "../../enums/PlayerStateName.js";
 import PlayerIdlingState from "./PlayerIdlingState.js";
@@ -16,7 +16,7 @@ import PlayerDownSlashingState from "./PlayerDownSlashingState.js";
 import { oneInXChance } from "../../../lib/Random.js";
 
 export default class Player extends Entity {
-    constructor(x, y, width, height, map) {
+    constructor(x, y, width, height, map, boss) {
         super(x, y, width, height);
         this.initialPosition = new Vector(x, y);
         this.position = new Vector(x, y);
@@ -27,9 +27,15 @@ export default class Player extends Entity {
         }
         this.velocity = new Vector(0, 0);
         this.map = map;
+        this.boss = boss;
         this.facingRight = true;
 
-        this.health = 5;
+        this.totalHealth = 5;
+        this.health = this.totalHealth;
+        // grace flag for when the player gets hit while big to void double tap
+		this.isGraced = false;
+        // player visibility for flashing implementation
+		this.isVisible = true;
 
         this.playerSprites = loadPlayerSprites(
             images.get(ImageName.HornetFull),
@@ -91,18 +97,38 @@ export default class Player extends Entity {
      */
     update(dt) {
         if (this.isDying) return
-        if (oneInXChance(100)) {
-            if (this.health > 0) {
-                this.health--;
-            }
-        }
-        // if (oneInXChance(75)) {
-        //     if (this.health < 5) {
-        //         this.health++;
+        // if (oneInXChance(1000)) {
+        //     if (this.health > 0) {
+        //         this.health--;
         //     }
         // }
+        this.checkBossCollison();
         this.stateMachine.update(dt);
 
+    }
+
+    checkBossCollison() {
+        if(this.collidesWith(this.boss) && !this.isGraced) {
+            this.getHurt();
+        }
+    }
+
+    getHurt(source) {
+        this.isGraced = true;
+        this.health -= 2;
+        timer.addTask(
+            () => {this.isVisible = !this.isVisible},
+            0.1,
+            1.5,
+            () => {
+                this.isGraced = false;
+                this.isVisible = true;
+            }
+        )
+    }
+
+    Heal() {
+        this.health = Math.min(this.health + 3, this.totalHealth);
     }
 
     /**
@@ -110,10 +136,12 @@ export default class Player extends Entity {
      * @param {CanvasRenderingContext2D} context - The rendering context.
      */
     render(context) {
-        this.activeHitboxes.forEach(hitbox => {
-            hitbox.render(context);
-        });
-        this.stateMachine.render(context);
+        if (this.isVisible){
+            this.activeHitboxes.forEach(hitbox => {
+                hitbox.render(context);
+            });
+            this.stateMachine.render(context);
+        }
 
     }
 }

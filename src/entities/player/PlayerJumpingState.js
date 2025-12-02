@@ -53,7 +53,15 @@ export default class PlayerJumpingState extends PlayerState {
 	/**
 	 * Handles player input.
 	 */
-	handleInput() {
+	handleInput(){
+		super.handleInput();
+
+		if (input.isKeyPressed(Input.KEYS.L)) {
+			this.player.stateMachine.change(PlayerStateName.Slashing);
+		}
+		if (input.isKeyHeld(Input.KEYS.S) && input.isKeyPressed(Input.KEYS.L)) {
+			this.player.stateMachine.change(PlayerStateName.Downslashing);
+		}
 		if (!input.isKeyHeld(Input.KEYS.SPACE) && this.player.velocity.y < 0) {
 			this.player.velocity.y *= 0.5;
 		}
@@ -65,12 +73,6 @@ export default class PlayerJumpingState extends PlayerState {
 	checkTransitions() {
 		if (this.player.velocity.y >= 0) {
 			this.player.stateMachine.change(PlayerStateName.Falling);
-		}
-		if (input.isKeyPressed(Input.KEYS.L)) {
-			this.player.stateMachine.change(PlayerStateName.Slashing);
-		}
-		if (input.isKeyHeld(Input.KEYS.S) && input.isKeyPressed(Input.KEYS.L)) {
-			this.player.stateMachine.change(PlayerStateName.Downslashing);
 		}
 	}
 }

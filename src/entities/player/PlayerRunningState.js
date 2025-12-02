@@ -50,6 +50,7 @@ export default class PlayerRunningState extends PlayerState {
 	 * Handles player input.
 	 */
 	handleInput() {
+		super.handleInput();
 		if (input.isKeyHeld(Input.KEYS.A) && !this.isMovingRight) {
 			this.isMovingLeft = true;
 		} else {
@@ -73,7 +74,9 @@ export default class PlayerRunningState extends PlayerState {
 		if (input.isKeyPressed(Input.KEYS.D && Input.KEYS.L)) {
 			this.player.stateMachine.change(PlayerStateName.Slashing);
 		}
+		
 	}
+
 
 	/**
 	 * Checks for state transitions.

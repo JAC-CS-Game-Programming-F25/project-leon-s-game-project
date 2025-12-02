@@ -31,6 +31,16 @@ export default class PlayerState extends State {
 	}
 
 	/**
+	 * Handles player input.
+	 */
+	handleInput() {
+
+		if (input.isKeyPressed(Input.KEYS.Q)) {
+			this.player.Heal();
+		}
+	}
+
+	/**
 	 * Renders the player on the canvas.
 	 * This method handles the player's orientation, animation, and optional debug rendering.
 	 *
@@ -90,7 +100,7 @@ export default class PlayerState extends State {
 		const bottom =
 			Math.floor(
 				(this.player.position.y + this.player.dimensions.y - 1) /
-					Tile.SIZE
+				Tile.SIZE
 			) + 1;
 
 		// Render a semi-transparent yellow rectangle for each tile in the calculated area

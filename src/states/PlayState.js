@@ -26,9 +26,11 @@ export default class PlayState extends State {
 		super();
 
 		this.map = new Map(mapDefinition);
-		this.player = new Player(50, 150, 11, 24, this.map);
-
+		
 		this.boss = new FinalJury(350, 30, 29, 50, this.map);
+
+		this.player = new Player(50, 150, 11, 24, this.map, this.boss);
+
 
 		this.camera = new Camera(
 			this.player,
