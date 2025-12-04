@@ -9,11 +9,13 @@ import Entity from "../Entity.js";
 import FinalJuryFallingState from "./FinalJuryFallingState.js";
 import FinalJuryIdlingState from "./FinalJuryIdlingState.js";
 import FinalJuryJumpingState from "./FinalJuryJumpingState.js";
+import FinalJurySlammingState from "./FinalJurySlammingState.js";
 import FinalJuryWhippingState from "./FinalJuryWhippingState.js";
 
 export default class FinalJury extends Entity {
     constructor(x, y, width, height, map, player) {
         super(x, y, width, height);
+        this.isBoss = true;
         this.initialPosition = new Vector(x,y);
         this.position = new Vector(x, y);
         this.dimensions = new Vector(width, height);
@@ -34,7 +36,7 @@ export default class FinalJury extends Entity {
         this.finalJuryAnimations = {
             idle: new Animation(this.FinalJurySprites.idle),
             jump: new Animation(this.FinalJurySprites.jump),
-            slam: new Animation(this.FinalJurySprites.slam),
+            slam: new Animation(this.FinalJurySprites.slam, 0.15, 1),
             whip: new Animation(this.FinalJurySprites.whip, 0.1, 1),
             spin: new Animation(this.FinalJurySprites.spin),
             slide: new Animation(this.FinalJurySprites.slide),
@@ -67,7 +69,7 @@ export default class FinalJury extends Entity {
         );
         this.stateMachine.add(
             BossStateName.Slamming,
-            new FinalJuryIdlingState(this)
+            new FinalJurySlammingState(this)
         );
         this.stateMachine.add(
             BossStateName.Sliding,

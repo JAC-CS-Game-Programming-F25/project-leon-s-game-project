@@ -12,6 +12,7 @@ import Vector from '../../lib/Vector.js';
 import UserInterface from '../services/UserInterface.js';
 import FinalJury from '../entities/boss/FinalJury.js';
 import { isAABBCollision } from '../../lib/Collision.js';
+import { getRandomNumber } from '../../lib/Random.js';
 
 /**
  * Represents the main play state of the game.
@@ -87,8 +88,10 @@ export default class PlayState extends State {
 
 		this.rain.forEach(particle => {
 			const windVariance = (Math.random() - 0.5) * 200;
+			particle.applyForce(new Vector(50,getRandomNumber(50,100)), dt);
 			particle.applyForce(new Vector(this.wind.x + windVariance, this.wind.y),dt);
 			particle.applyForce(this.rainGravity, dt);
+			
 			particle.update(dt);
 		});
 
@@ -109,13 +112,13 @@ export default class PlayState extends State {
 		this.player.render(context);
 		this.boss.render(context);
 		this.map.damageColliders.forEach(collider => {
-			collider.render(context);
+			collider.render(context, '#1b2e4a');
 		});
 
 		
 
 		this.rain.forEach(particle => {
-			particle.render(context);
+			particle.render(context,'#1b2e4a');
 		});
 
 		this.camera.resetTransform(context);

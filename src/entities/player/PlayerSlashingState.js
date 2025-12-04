@@ -1,5 +1,5 @@
 import PlayerStateName from "../../enums/PlayerStateName.js";
-import DamageCollider from "../DamageCollider.js";
+import DamageCollider from "../collidervariants/DamageCollider.js";
 import PlayerState from "./PlayerState.js"
 
 export default class PlayerSlashingState extends PlayerState {

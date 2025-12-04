@@ -5,6 +5,7 @@ import FinalJuryState from "./FinalJuryState.js";
 export default class FinalJuryJumpingState extends FinalJuryState {
     constructor(boss) {
         super(boss);
+        this.validSlam = false;
     }
 
     enter() {
@@ -21,7 +22,9 @@ export default class FinalJuryJumpingState extends FinalJuryState {
             BossConfig.jumpPower * 1,   // high jump
         ];
         jumpPower = jumps[Math.floor(Math.random() * jumps.length)];
-
+        if(jumpPower == BossConfig.jumpPower) {
+            this.validSlam = true;
+        }
         boss.velocity.y = jumpPower;
 
         boss.velocity.x = boss.facingRight ? BossConfig.maxSpeed : -BossConfig.maxSpeed;
@@ -39,8 +42,10 @@ export default class FinalJuryJumpingState extends FinalJuryState {
     }
 
     checkTransitions() {
-        if (this.boss.velocity.y > 0) {
-            this.boss.stateMachine.change(BossStateName.Falling);
+        if(this.boss.velocity.y > 0 && this.validSlam) {
+            this.boss.stateMachine.change(BossStateName.Slamming);
+        } else if (this.boss.velocity.y > 0) {
+            this.boss.stateMachine.change(BossStateName.Slamming);
         }
     }
 }

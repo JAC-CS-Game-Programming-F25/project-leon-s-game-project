@@ -32,7 +32,7 @@ export default class Player extends Entity {
         this.boss = boss;
         this.facingRight = true;
 
-        this.totalHealth = 5;
+        this.totalHealth = 12;
         this.health = this.totalHealth;
         // grace flag for when the player gets hit while big to void double tap
 		this.isGraced = false;
@@ -99,11 +99,6 @@ export default class Player extends Entity {
      */
     update(dt) {
         if (this.isDying) return
-        // if (oneInXChance(1000)) {
-        //     if (this.health > 0) {
-        //         this.health--;
-        //     }
-        // }
         this.checkBossCollison();
         this.checkDamageColliderCollisions();
         this.stateMachine.update(dt);

@@ -1,5 +1,5 @@
 import BossStateName from "../../enums/BossStateName.js";
-import DamageCollider from "../DamageCollider.js";
+import DamageCollider from "../collidervariants/DamageCollider.js";
 import FinalJuryState from "./FinalJuryState.js";
 
 export default class FinalJuryWhippingState extends FinalJuryState {
