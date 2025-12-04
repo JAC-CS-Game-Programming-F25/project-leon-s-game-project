@@ -80,6 +80,7 @@ export const finalJurySpriteConfig = {
 		{x: 0, y: 128, width: 48, height: 64},
 		{x: 96, y: 0, width: 48, height: 64},
 		{x: 144, y: 0, width: 48, height: 64},
+		{x: 144, y: 0, width: 48, height: 64},
 	],
 	spin: [
 		{x: 0, y: 128, width: 48, height: 64},

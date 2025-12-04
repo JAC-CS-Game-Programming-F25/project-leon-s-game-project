@@ -6,7 +6,10 @@ import BossStateName from "../../enums/BossStateName.js";
 import ImageName from "../../enums/ImageName.js";
 import { images } from "../../globals.js";
 import Entity from "../Entity.js";
+import FinalJuryFallingState from "./FinalJuryFallingState.js";
 import FinalJuryIdlingState from "./FinalJuryIdlingState.js";
+import FinalJuryJumpingState from "./FinalJuryJumpingState.js";
+import FinalJuryWhippingState from "./FinalJuryWhippingState.js";
 
 export default class FinalJury extends Entity {
     constructor(x, y, width, height, map, player) {
@@ -52,11 +55,15 @@ export default class FinalJury extends Entity {
         );
         this.stateMachine.add(
             BossStateName.Whipping,
-            new FinalJuryIdlingState(this)
+            new FinalJuryWhippingState(this)
+        );
+        this.stateMachine.add(
+            BossStateName.Falling,
+            new FinalJuryFallingState(this)
         );
         this.stateMachine.add(
             BossStateName.Jumping,
-            new FinalJuryIdlingState(this)
+            new FinalJuryJumpingState(this)
         );
         this.stateMachine.add(
             BossStateName.Slamming,

@@ -1,4 +1,5 @@
 import Entity from '../entities/Entity.js';
+import Player from '../entities/player/Player.js';
 import Map from './Map.js';
 
 /**
@@ -29,15 +30,15 @@ export default class CollisionDetector {
 		);
 
 		if (entity.velocity.x > 0) {
-			// Moving right
-			if (this.isSolidTileInColumn(tileRight, tileTop, tileBottom)) {
+			// Moving right ignores collision if Final Jury is getting checked
+			if (this.isSolidTileInColumn(tileRight, tileTop, tileBottom) && entity instanceof Player) {
 				// Collision on the right side
 				entity.position.x = tileRight * tileSize - entity.dimensions.x;
 				entity.velocity.x = 0;
 			}
 		} else if (entity.velocity.x < 0) {
-			// Moving left
-			if (this.isSolidTileInColumn(tileLeft, tileTop, tileBottom)) {
+			// Moving left ignores collision if Final Jury is getting checked
+			if (this.isSolidTileInColumn(tileLeft, tileTop, tileBottom) && entity instanceof Player) {
 				// Collision on the left side
 				entity.position.x = (tileLeft + 1) * tileSize;
 				entity.velocity.x = 0;
@@ -71,7 +72,7 @@ export default class CollisionDetector {
 				entity.isOnGround = true;
 			}
 		} else if (entity.velocity.y < 0) {
-			// Jumping or moving upwards
+			// Jumping or moving upwards ignores collision if Final Jury is getting checked
 			if (
 				this.checkBlockCollisionFromBelow(
 					entity,
@@ -79,7 +80,7 @@ export default class CollisionDetector {
 					tileLeft,
 					tileRight
 				) ||
-				this.isSolidTileInRow(tileTop, tileLeft, tileRight)
+				this.isSolidTileInRow(tileTop, tileLeft, tileRight) && entity instanceof Player
 			) {
 				// Collision above
 				entity.position.y = (tileTop + 1) * tileSize;

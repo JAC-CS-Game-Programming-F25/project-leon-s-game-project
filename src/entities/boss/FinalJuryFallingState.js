@@ -2,15 +2,12 @@ import { oneInXChance } from "../../../lib/Random.js";
 import BossStateName from "../../enums/BossStateName.js";
 import FinalJuryState from "./FinalJuryState.js";
 
-export default class FinalJuryIdlingState extends FinalJuryState {
+export default class FinalJuryFallingState extends FinalJuryState {
     constructor(boss) {
         super (boss);
     }
 
     enter() {
-		this.boss.velocity.x = 0;
-		this.boss.velocity.y = 0;
-
 		this.boss.currentAnimation = this.boss.finalJuryAnimations.idle;
 	}
 
@@ -20,10 +17,8 @@ export default class FinalJuryIdlingState extends FinalJuryState {
 	}
 
     handleDecision() {
-        if(oneInXChance(50)) {
-            this.boss.stateMachine.change(BossStateName.Whipping);
-        } else if(oneInXChance(50)) {
-            this.boss.stateMachine.change(BossStateName.Jumping);
+        if(this.boss.velocity.y === 0) {
+            this.boss.stateMachine.change(BossStateName.Idling);
         }
     }
 }

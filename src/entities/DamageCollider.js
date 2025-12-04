@@ -1,5 +1,7 @@
 import { debugOptions } from "../globals.js";
+import FinalJury from "./boss/FinalJury.js";
 import Entity from "./Entity.js";
+import Player from "./player/Player.js";
 
 export default class DamageCollider extends Entity {
     constructor(x, y, width, height, sprite = null, lifetime = 0.1, source = null) {
@@ -22,7 +24,10 @@ export default class DamageCollider extends Entity {
         if (this.sprite) {
             this.sprite.render(this.position.x, this.position.y);
             // If debug mode is enabled, render additional debug information
-            if (debugOptions.playerCollision) {
+            if (debugOptions.playerCollision && this.source instanceof Player) {
+                this.renderDebug(context);
+            }
+            if (debugOptions.bossCollision && this.source instanceof FinalJury) {
                 this.renderDebug(context);
             }
         }

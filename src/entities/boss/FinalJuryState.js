@@ -13,6 +13,7 @@ export default class FinalJuryState extends State {
     }
 
     update(dt) {
+        this.checkDirection();
 		this.applyGravity(dt);
 		this.updatePosition(dt);
 		this.boss.currentAnimation.update(dt);
@@ -64,6 +65,16 @@ export default class FinalJuryState extends State {
             this.boss.dimensions.x,
             this.boss.dimensions.y
         );
+    }
+    checkDirection() {
+        if(this.boss.isOnGround) {
+            if(this.boss.player.position.x > this.boss.position.x) {
+                this.boss.facingRight = true;
+            } else {
+                this.boss.facingRight = false;
+
+            }
+        }
     }
 
     applyGravity(dt) {

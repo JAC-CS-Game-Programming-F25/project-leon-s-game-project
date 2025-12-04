@@ -10,8 +10,8 @@ import MusicName from '../enums/MusicName.js';
 import Particle from '../../lib/Particle.js';
 import { getRandomNegativeNumber } from '../../lib/Random.js';
 import Vector from '../../lib/Vector.js';
-import FinalJury from '../entities/boss/finaljury.js';
 import UserInterface from '../services/UserInterface.js';
+import FinalJury from '../entities/boss/FinalJury.js';
 
 /**
  * Represents the main play state of the game.
@@ -30,6 +30,8 @@ export default class PlayState extends State {
 		this.boss = new FinalJury(350, 30, 29, 50, this.map);
 
 		this.player = new Player(50, 150, 11, 24, this.map, this.boss);
+
+		this.boss.player = this.player;
 
 
 		this.camera = new Camera(
@@ -107,6 +109,9 @@ export default class PlayState extends State {
 		this.map.render(context);
 		this.player.render(context);
 		this.boss.render(context);
+		this.map.damageColliders.forEach(collider => {
+			collider.render(context);
+		});
 
 		
 

@@ -24,12 +24,6 @@ export default class PlayerJumpingState extends PlayerState {
 	 */
 	enter() {
 		this.player.velocity.y = PlayerConfig.jumpPower;
-		// this.player.currentAnimation = this.player.smallAnimations.jump;
-		// if(this.player.isBig) {
-		// 	this.player.currentAnimation = this.player.bigAnimations.jump;
-		// } else{
-		// 	this.player.currentAnimation = this.player.smallAnimations.jump;
-		// }
 		this.player.currentAnimation = this.player.playerAnimations.jump;
 	}
 
