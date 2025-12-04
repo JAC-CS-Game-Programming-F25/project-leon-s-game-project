@@ -1,4 +1,4 @@
-import { didCollide } from "../../lib/Collision.js";
+import { didCollide, getKnockbackDirection } from "../../lib/Collision.js";
 import { debugOptions } from "../globals.js";
 import FinalJury from "./boss/FinalJury.js";
 import Entity from "./Entity.js";
@@ -25,6 +25,7 @@ export default class DamageCollider extends Entity {
         if(target instanceof Player && this.source instanceof FinalJury) {
             if(didCollide(this, target) && !target.isGraced) {
                 target.getHurt();
+                target.damageKnockBack(getKnockbackDirection(this, target));
             }
         }
     }

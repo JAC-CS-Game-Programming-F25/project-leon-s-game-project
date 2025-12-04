@@ -14,6 +14,8 @@ import PlayerFallingState from "./PlayerFallingState.js";
 import PlayerSlashingState from "./PlayerSlashingState.js";
 import PlayerDownSlashingState from "./PlayerDownSlashingState.js";
 import { oneInXChance } from "../../../lib/Random.js";
+import { PlayerConfig } from "../../../config/PlayerConfig.js";
+import { getKnockbackDirection } from "../../../lib/Collision.js";
 
 export default class Player extends Entity {
     constructor(x, y, width, height, map, boss) {
@@ -111,6 +113,7 @@ export default class Player extends Entity {
     checkBossCollison() {
         if(this.collidesWith(this.boss) && !this.isGraced) {
             this.getHurt();
+            this.damageKnockBack(getKnockbackDirection(this.boss, this));
         }
     }
     checkDamageColliderCollisions() {
@@ -131,6 +134,18 @@ export default class Player extends Entity {
                 this.isVisible = true;
             }
         )
+    }
+
+    damageKnockBack(direction) {
+        if(direction == 0){
+            if(oneInXChance(2)) {
+                direction = -1
+            } else {
+                direction = 1;
+            }
+        }
+        this.velocity.y = PlayerConfig.bounceVelocity;
+        this.velocity.x = 150 * direction;
     }
 
     Heal() {
