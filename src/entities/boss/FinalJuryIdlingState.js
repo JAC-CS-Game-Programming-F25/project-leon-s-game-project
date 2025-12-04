@@ -12,6 +12,8 @@ export default class FinalJuryIdlingState extends FinalJuryState {
 		this.boss.velocity.y = 0;
 
 		this.boss.currentAnimation = this.boss.finalJuryAnimations.idle;
+        this.isOnCooldown = true;
+        
 	}
 
     update(dt) {

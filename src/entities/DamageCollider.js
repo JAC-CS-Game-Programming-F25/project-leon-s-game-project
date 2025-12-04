@@ -1,3 +1,4 @@
+import { didCollide } from "../../lib/Collision.js";
 import { debugOptions } from "../globals.js";
 import FinalJury from "./boss/FinalJury.js";
 import Entity from "./Entity.js";
@@ -17,6 +18,14 @@ export default class DamageCollider extends Entity {
         this.age += dt;
         if (this.age >= this.lifetime) {
             this.isActive = false;
+        }
+    }
+
+    checkHit(target) {
+        if(target instanceof Player && this.source instanceof FinalJury) {
+            if(didCollide(this, target) && !target.isGraced) {
+                target.getHurt();
+            }
         }
     }
 

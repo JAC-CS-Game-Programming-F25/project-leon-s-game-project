@@ -4,27 +4,43 @@ import FinalJuryState from "./FinalJuryState.js";
 
 export default class FinalJuryJumpingState extends FinalJuryState {
     constructor(boss) {
-		super(boss);
-	}
+        super(boss);
+    }
 
     enter() {
-        this.boss.velocity.y = BossConfig.jumpPower;
-        this.boss.velocity.x = this.boss.facingRight ? BossConfig.maxSpeed : -BossConfig.maxSpeed;
-        this.boss.currentAnimation = this.boss.finalJuryAnimations.jump;
-        this.boss.isOnGround = false;
+        const boss = this.boss;
+        // ---------------------------------------------
+        // JUMP POWER LOGIC
+        // ---------------------------------------------
+        let jumpPower;
+
+        // Chooses between a random selection of jumps
+        const jumps = [
+            BossConfig.jumpPower * 0.6,   // low jump
+            BossConfig.jumpPower * 0.85,  // medium jump
+            BossConfig.jumpPower * 1,   // high jump
+        ];
+        jumpPower = jumps[Math.floor(Math.random() * jumps.length)];
+
+        boss.velocity.y = jumpPower;
+
+        boss.velocity.x = boss.facingRight ? BossConfig.maxSpeed : -BossConfig.maxSpeed;
+
+        boss.currentAnimation = boss.finalJuryAnimations.jump;
+
+        boss.isOnGround = false;
     }
 
     exit() {}
 
     update(dt) {
-		super.update(dt);
-
-		this.checkTransitions();
-	}
+        super.update(dt);
+        this.checkTransitions();
+    }
 
     checkTransitions() {
-		if (this.boss.velocity.y >= 0) {
-      this.boss.stateMachine.change(BossStateName.Falling);
-		}
-	}
+        if (this.boss.velocity.y > 0) {
+            this.boss.stateMachine.change(BossStateName.Falling);
+        }
+    }
 }

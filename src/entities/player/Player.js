@@ -103,6 +103,7 @@ export default class Player extends Entity {
         //     }
         // }
         this.checkBossCollison();
+        this.checkDamageColliderCollisions();
         this.stateMachine.update(dt);
 
     }
@@ -111,6 +112,11 @@ export default class Player extends Entity {
         if(this.collidesWith(this.boss) && !this.isGraced) {
             this.getHurt();
         }
+    }
+    checkDamageColliderCollisions() {
+        this.map.damageColliders.forEach(collider => {
+            collider.checkHit(this);
+        })
     }
 
     getHurt(source) {

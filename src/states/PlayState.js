@@ -8,10 +8,10 @@ import Tile from '../services/Tile.js';
 import ImageName from '../enums/ImageName.js';
 import MusicName from '../enums/MusicName.js';
 import Particle from '../../lib/Particle.js';
-import { getRandomNegativeNumber } from '../../lib/Random.js';
 import Vector from '../../lib/Vector.js';
 import UserInterface from '../services/UserInterface.js';
 import FinalJury from '../entities/boss/FinalJury.js';
+import { isAABBCollision } from '../../lib/Collision.js';
 
 /**
  * Represents the main play state of the game.
@@ -74,7 +74,6 @@ export default class PlayState extends State {
 		this.camera.update(dt);
 		this.player.update(dt);
 		this.boss.update(dt);
-
 		this.UI.update(dt);
 
 		const spawnX = this.camera.position.x-150 + Math.random() * this.camera.viewportWidth;
