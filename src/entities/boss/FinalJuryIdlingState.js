@@ -35,7 +35,7 @@ export default class FinalJuryIdlingState extends FinalJuryState {
         if(oneInXChance(50)) {
             this.boss.stateMachine.change(BossStateName.Whipping);
         } else if(oneInXChance(50)) {
-            this.boss.stateMachine.change(BossStateName.Jumping);
+            //this.boss.stateMachine.change(BossStateName.Jumping);
         }
     }
 }

@@ -34,7 +34,7 @@ export default class PlayerDownSlashingState extends PlayerState {
 		}
         if(this.player.currentAnimation.isDone()) {
             this.player.currentAnimation.refresh();
-            this.player.stateMachine.change(PlayerStateName.Idling);
+            this.player.stateMachine.change(PlayerStateName.Falling);
         }
 
         
@@ -62,7 +62,8 @@ export default class PlayerDownSlashingState extends PlayerState {
             height,
             effectSprite,
             0.05,
-            this.player
+            this.player,
+            "down"
         );
         this.player.map.damageColliders.push(hitbox);
     }

@@ -4,7 +4,7 @@ import StateMachine from "../../../lib/StateMachine.js";
 import Vector from "../../../lib/Vector.js";
 import BossStateName from "../../enums/BossStateName.js";
 import ImageName from "../../enums/ImageName.js";
-import { images } from "../../globals.js";
+import { images, timer } from "../../globals.js";
 import Entity from "../Entity.js";
 import FinalJuryFallingState from "./FinalJuryFallingState.js";
 import FinalJuryIdlingState from "./FinalJuryIdlingState.js";
@@ -27,6 +27,9 @@ export default class FinalJury extends Entity {
         this.map = map;
         this.player = player;
         this.facingRight = false;
+
+        this.totalHealth = 500;
+        this.health = this.totalHealth;
 
         this.FinalJurySprites = loadFinalJurySprites(
             images.get(ImageName.FinalJury),
@@ -90,8 +93,28 @@ export default class FinalJury extends Entity {
 	 * @param {number} dt - The time passed since the last update.
 	 */
     update(dt) {
+        this.checkDamageColliderCollisions();
 		this.stateMachine.update(dt);
 	}
+    checkDamageColliderCollisions() {
+        this.map.damageColliders.forEach(collider => {
+            collider.checkHit(this);
+        })
+    }
+
+    getHurt(source) {
+        this.isGraced = true;
+        this.health -= 10;
+        timer.addTask(
+            () => {},
+            0.1,
+            0.1,
+            () => {
+                this.isGraced = false;
+            }
+        );
+        console.log(`${this.health}/${this.totalHealth}`);
+    }
 
     /**
 	 * Renders the ]Final Jury.

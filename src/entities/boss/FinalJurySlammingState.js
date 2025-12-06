@@ -35,7 +35,7 @@ export default class FinalJurySlammingState extends FinalJuryState {
         const lifetime = 0.8;
         const spacing = 40;        // horizontal spacing between pillars
         const waveCount = 5;      // number of pillars per side
-        const delay = 0.25;        // wave speed
+        const delay = 0.15;        // wave speed
 
         // Spawn rightward shockwave
         for (let i = 0; i < waveCount; i++) {

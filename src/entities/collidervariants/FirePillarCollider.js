@@ -27,6 +27,14 @@ export default class FirePillarCollider extends DamageCollider {
         spawnX = this.position.x + getRandomPositiveInteger(0,this.dimensions.x);
         spawnY = this.position.y + getRandomPositiveInteger(0,this.dimensions.y);
         this.fireParticles.push(new Particle(spawnX,spawnY));
+
+        spawnX = this.position.x + getRandomPositiveInteger(0,this.dimensions.x);
+        spawnY = this.position.y + getRandomPositiveInteger(0,this.dimensions.y);
+        this.fireParticles.push(new Particle(spawnX,spawnY));
+
+        spawnX = this.position.x + getRandomPositiveInteger(0,this.dimensions.x);
+        spawnY = this.position.y + getRandomPositiveInteger(0,this.dimensions.y);
+        this.fireParticles.push(new Particle(spawnX,spawnY));
         
         this.fireParticles.forEach(particle => {
             particle.applyForce(this.fire, dt);

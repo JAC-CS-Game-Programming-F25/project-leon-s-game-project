@@ -131,6 +131,11 @@ export default class Player extends Entity {
         )
     }
 
+    pogoBounce() {
+        this.velocity.y = PlayerConfig.bounceVelocity
+        this.isOnGround = false;
+    }
+
     damageKnockBack(direction) {
         if(direction == 0){
             if(oneInXChance(2)) {

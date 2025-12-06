@@ -1,16 +1,17 @@
 import { didCollide, getKnockbackDirection } from "../../../lib/Collision.js";
-import { debugOptions } from "../../globals.js";
+import { debugOptions, timer } from "../../globals.js";
 import Entity from "../Entity.js";
 import Player from "../player/Player.js";
 
 export default class DamageCollider extends Entity {
-    constructor(x, y, width, height, sprite = null, lifetime = 0.1, source = null) {
+    constructor(x, y, width, height, sprite = null, lifetime = 0.1, source = null, type = "horizontal") {
         super(x,y,width,height);
         this.sprite = sprite;
         this.lifetime = lifetime;
         this.age = 0;
         this.isActive = true;
         this.source = source;
+        this.type = type;
     }
 
     update(dt) {
@@ -25,6 +26,29 @@ export default class DamageCollider extends Entity {
             if(didCollide(this, target) && !target.isGraced) {
                 target.getHurt();
                 target.damageKnockBack(getKnockbackDirection(this, target));
+            }
+        }
+        if (target?.isBoss && this.source instanceof Player) {
+            // check if player slash hit the boss
+            if(didCollide(this, target) && !target.isGraced) {
+                console.log("Player hit boss");
+                target.getHurt();
+
+                // Apply vertical knockback on the player if downslash was performed
+                // offers a grace period to make it easier to
+                this.isGraced = true;
+                this.source.pogoBounce();
+                if (this.type === "down") {
+                    timer.addTask(
+                    () => {},
+                    0.1,
+                    0.2,
+                    () => {
+                        this.isGraced = false;
+                    }
+                )
+                    
+                }
             }
         }
     }
