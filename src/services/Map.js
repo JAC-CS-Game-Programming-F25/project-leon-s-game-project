@@ -41,6 +41,8 @@ export default class Map {
 		// Initialize arrays to store special entities
 		this.blocks = [];
 		this.damageColliders = [];
+		// used by Final Jury wjen performing the spin attack
+		this.fireCircleParticles = [];
 
 		// Process the map to create special entities
 		this.initializeSpecialTiles();
@@ -76,12 +78,14 @@ export default class Map {
 	 */
 	update(dt) {
 		this.damageColliders.forEach((collider) => collider.update(dt));
+		this.fireCircleParticles.forEach((collider) => collider.update(dt));
 
 		//this.goombas = this.goombas.filter((goomba) => !goomba.isDead);
 		// added these two
 		// this.coins = this.coins.filter((coin) => !coin.isHit);
 		// this.mushrooms = this.mushrooms.filter((mushroom) => !mushroom.isPickedUp);
 		this.damageColliders = this.damageColliders.filter((collider) => collider.isActive);
+		this.fireCircleParticles = this.damageColliders.filter((collider) => collider.isActive);
 	}
 
 	/**
@@ -91,6 +95,7 @@ export default class Map {
 	render(context) {
 		this.foregroundLayer.render();
 		this.damageColliders.forEach((collider) => collider.render(context));
+		this.fireCircleParticles.forEach((collider) => collider.render(context));
 
 
 		if (debugOptions.mapGrid) {

@@ -10,31 +10,25 @@ export default class FirePillarCollider extends DamageCollider {
         super(x,y,width, height, null, lifetime, source);
         this.fireParticles = [];
         this.fire = new Vector(getRandomNumber(100,0),-100);
-        this.fireXCounter = new Vector(0,0);
+
+        // will be used to show the player where the attack will be 
+        // gray particles spawning before the orange fire particles
+        this.warningTime = this.lifetime * 0.2;
+        this.isWarning = true;
     }
     
 
     update(dt) {
         super.update(dt);
-        let spawnX = this.position.x + getRandomPositiveInteger(0,this.dimensions.x);
-        let spawnY = this.position.y + getRandomPositiveInteger(0,this.dimensions.y);
-        this.fireParticles.push(new Particle(spawnX,spawnY));
 
-        spawnX = this.position.x + getRandomPositiveInteger(0,this.dimensions.x);
-        spawnY = this.position.y + getRandomPositiveInteger(0,this.dimensions.y);
-        this.fireParticles.push(new Particle(spawnX,spawnY));
+        // this.isWarning = (this.age < this.warningTime);
+        
+        for (let i = 0; i < 1; i++) {
+            const spawnX = this.position.x + getRandomPositiveInteger(0, this.dimensions.x);
+            const spawnY = this.position.y + getRandomPositiveInteger(0, this.dimensions.y);
 
-        spawnX = this.position.x + getRandomPositiveInteger(0,this.dimensions.x);
-        spawnY = this.position.y + getRandomPositiveInteger(0,this.dimensions.y);
-        this.fireParticles.push(new Particle(spawnX,spawnY));
-
-        spawnX = this.position.x + getRandomPositiveInteger(0,this.dimensions.x);
-        spawnY = this.position.y + getRandomPositiveInteger(0,this.dimensions.y);
-        this.fireParticles.push(new Particle(spawnX,spawnY));
-
-        spawnX = this.position.x + getRandomPositiveInteger(0,this.dimensions.x);
-        spawnY = this.position.y + getRandomPositiveInteger(0,this.dimensions.y);
-        this.fireParticles.push(new Particle(spawnX,spawnY));
+            this.fireParticles.push(new Particle(spawnX, spawnY));
+        }
         
         this.fireParticles.forEach(particle => {
             particle.applyForce(this.fire, dt);
@@ -43,9 +37,11 @@ export default class FirePillarCollider extends DamageCollider {
         this.fireParticles = this.fireParticles.filter(p => p.isAlive);
     }
 
+
     render(context) {
+        const color = "#d05019ff";
         this.fireParticles.forEach(particle => {
-            particle.render(context, '#d05019ff');
+            particle.render(context, color);
         });
         if (debugOptions.bossCollision && this.source?.isBoss) {
             this.renderDebug(context);

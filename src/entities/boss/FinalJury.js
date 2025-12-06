@@ -7,6 +7,7 @@ import ImageName from "../../enums/ImageName.js";
 import { images, timer } from "../../globals.js";
 import Entity from "../Entity.js";
 import FinalJuryFallingState from "./FinalJuryFallingState.js";
+import FinalJuryFireSpinningstate from "./FinalJuryFireSpinningstate.js";
 import FinalJuryIdlingState from "./FinalJuryIdlingState.js";
 import FinalJuryJumpingState from "./FinalJuryJumpingState.js";
 import FinalJurySlammingState from "./FinalJurySlammingState.js";
@@ -41,7 +42,7 @@ export default class FinalJury extends Entity {
             jump: new Animation(this.FinalJurySprites.jump),
             slam: new Animation(this.FinalJurySprites.slam, 0.15, 1),
             whip: new Animation(this.FinalJurySprites.whip, 0.1, 1),
-            spin: new Animation(this.FinalJurySprites.spin),
+            spin: new Animation(this.FinalJurySprites.spin, 0.1),
             slide: new Animation(this.FinalJurySprites.slide),
             stun: new Animation(this.FinalJurySprites.stun),
         };
@@ -80,7 +81,7 @@ export default class FinalJury extends Entity {
         );
         this.stateMachine.add(
             BossStateName.Spinning,
-            new FinalJuryIdlingState(this)
+            new FinalJuryFireSpinningstate(this)
         );
         this.stateMachine.add(
             BossStateName.Idling,

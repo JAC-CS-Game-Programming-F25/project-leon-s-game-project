@@ -32,10 +32,12 @@ export default class FinalJuryIdlingState extends FinalJuryState {
         // Stop early if cooldown is still active
         if (this.isOnCooldown) return;
 
-        if(oneInXChance(50)) {
+        if(oneInXChance(100)) {
             this.boss.stateMachine.change(BossStateName.Whipping);
         } else if(oneInXChance(50)) {
-            //this.boss.stateMachine.change(BossStateName.Jumping);
+            this.boss.stateMachine.change(BossStateName.Jumping);
+        } else if(oneInXChance(50)) {
+            this.boss.stateMachine.change(BossStateName.Spinning);
         }
     }
 }

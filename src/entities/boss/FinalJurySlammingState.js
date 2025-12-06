@@ -32,7 +32,7 @@ export default class FinalJurySlammingState extends FinalJuryState {
 
         const pillarWidth = 32;
         const pillarHeight = 20;   // shorter pillars for shockwave
-        const lifetime = 0.8;
+        const lifetime = 1;
         const spacing = 40;        // horizontal spacing between pillars
         const waveCount = 5;      // number of pillars per side
         const delay = 0.15;        // wave speed
