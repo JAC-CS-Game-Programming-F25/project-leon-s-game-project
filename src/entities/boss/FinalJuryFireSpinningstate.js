@@ -13,13 +13,13 @@ export default class FinalJuryFireSpinningstate extends FinalJuryState {
         this.rings = [];
 
         // Controls how often a NEW ring starts forming
-        this.ringSpawnCooldown = 1.5;
+        this.ringSpawnCooldown = 2.4;
         this.ringSpawnTimer = 0;
 
         // Density of each ring (smaller = more particles)
         this.angleStep = Math.PI / 50;
 
-        this.maxRingRadius = 300; // rings get removed after reaching this
+        this.maxRingRadius = 500; // rings get removed after reaching this
 
     }
     enter() {
@@ -97,7 +97,7 @@ export default class FinalJuryFireSpinningstate extends FinalJuryState {
                 const y = cy + Math.sin(finalAngle) * ring.radius;
 
                 this.boss.map.damageColliders.push(
-                    new FirePillarCollider(x, y, 10, 10, 0.5, this.boss)
+                    new FirePillarCollider(x, y, 6, 6, 0.5, this.boss)
                 );
             }
         }
