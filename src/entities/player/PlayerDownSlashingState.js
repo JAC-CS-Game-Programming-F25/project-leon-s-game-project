@@ -59,7 +59,7 @@ export default class PlayerDownSlashingState extends PlayerState {
             x,
             y,
             width,
-            height,
+            height+16,
             effectSprite,
             0.05,
             this.player,

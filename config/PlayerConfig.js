@@ -13,7 +13,7 @@ export const PlayerConfig = {
 	doubleJumpEnabled: false,
 	skidThreshold: 100,
 	slideFriction: 0.95,
-	bounceVelocity: -200, // Upward velocity when bouncing off an enemy
+	bounceVelocity: -300, // Upward velocity when bouncing off an enemy
 };
 
 // Function to update PlayerConfig based on slider values

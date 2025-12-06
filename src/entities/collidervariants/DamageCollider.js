@@ -36,9 +36,10 @@ export default class DamageCollider extends Entity {
 
                 // Apply vertical knockback on the player if downslash was performed
                 // offers a grace period to make it easier to
-                this.isGraced = true;
-                this.source.pogoBounce();
+                
                 if (this.type === "down") {
+                    this.isGraced = true;
+                    this.source.pogoBounce();
                     timer.addTask(
                     () => {},
                     0.1,
