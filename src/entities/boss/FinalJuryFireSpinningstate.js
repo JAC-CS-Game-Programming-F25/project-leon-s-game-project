@@ -24,8 +24,8 @@ export default class FinalJuryFireSpinningstate extends FinalJuryState {
     }
     enter() {
         this.boss.currentAnimation = this.boss.finalJuryAnimations.spin;
-
         this.boss.currentAnimation.refresh();
+        
         
         this.elapsedTime = 0;
         this.rings = [];
@@ -97,7 +97,7 @@ export default class FinalJuryFireSpinningstate extends FinalJuryState {
                 const y = cy + Math.sin(finalAngle) * ring.radius;
 
                 this.boss.map.damageColliders.push(
-                    new FirePillarCollider(x, y, 6, 6, 0.5, this.boss)
+                    new FirePillarCollider(x, y, 6, 6, 0.5, this.boss, 1)
                 );
             }
         }

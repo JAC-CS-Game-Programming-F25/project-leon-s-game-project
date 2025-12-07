@@ -6,15 +6,21 @@ import { debugOptions } from "../../globals.js";
 
 
 export default class FirePillarCollider extends DamageCollider {
-    constructor(x,y, width, height, lifetime = 0.1, source = null) {
+    constructor(x,y, width, height, lifetime = 0.1, source = null, particleCount = 3) {
         super(x,y,width, height, null, lifetime, source);
         this.fireParticles = [];
-        this.fire = new Vector(getRandomNumber(100,0),-100);
+        this.fire = new Vector(
+            getRandomNumber(-40, 40),
+            -120 - Math.random() * 80
+        );
 
         // will be used to show the player where the attack will be 
         // gray particles spawning before the orange fire particles
         this.warningTime = this.lifetime * 0.2;
         this.isWarning = true;
+
+        // the amount of particles to be generated per frame
+        this.particleCount = particleCount;
     }
     
 
@@ -23,7 +29,7 @@ export default class FirePillarCollider extends DamageCollider {
 
         // this.isWarning = (this.age < this.warningTime);
         
-        for (let i = 0; i < 1; i++) {
+        for (let i = 0; i < this.particleCount; i++) {
             const spawnX = this.position.x + getRandomPositiveInteger(0, this.dimensions.x);
             const spawnY = this.position.y + getRandomPositiveInteger(0, this.dimensions.y);
 

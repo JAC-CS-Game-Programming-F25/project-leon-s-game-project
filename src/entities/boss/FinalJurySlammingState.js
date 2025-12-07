@@ -42,7 +42,7 @@ export default class FinalJurySlammingState extends FinalJuryState {
             const x = baseX + spacing * (i + 1) - 40;
             timer.wait(i * delay).then(() => {
                 this.boss.map.damageColliders.push(
-                    new FirePillarCollider(x, baseY, pillarWidth, pillarHeight, lifetime, this.boss)
+                    new FirePillarCollider(x, baseY, pillarWidth, pillarHeight, lifetime, this.boss, 5)
                 );
             });
         }
@@ -52,7 +52,7 @@ export default class FinalJurySlammingState extends FinalJuryState {
             const x = baseX - spacing * (i + 1) + 40;
             timer.wait(i * delay).then(() => {
                 this.boss.map.damageColliders.push(
-                    new FirePillarCollider(x, baseY, pillarWidth, pillarHeight, lifetime, this.boss)
+                    new FirePillarCollider(x, baseY, pillarWidth, pillarHeight, lifetime, this.boss, 5)
                 );
             });
         }

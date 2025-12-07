@@ -67,7 +67,7 @@ export default class FinalJuryState extends State {
         );
     }
     checkDirection() {
-        if(this.boss.isOnGround) {
+        if(this.boss.isOnGround && !this.boss.stateMachine.currentState?.isSliding) {
             if(this.boss.player.position.x > this.boss.position.x) {
                 this.boss.facingRight = true;
             } else {

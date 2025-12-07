@@ -11,6 +11,7 @@ import FinalJuryFireSpinningstate from "./FinalJuryFireSpinningstate.js";
 import FinalJuryIdlingState from "./FinalJuryIdlingState.js";
 import FinalJuryJumpingState from "./FinalJuryJumpingState.js";
 import FinalJurySlammingState from "./FinalJurySlammingState.js";
+import FinalJurySlidingState from "./FinalJurySlidingState.js";
 import FinalJuryWhippingState from "./FinalJuryWhippingState.js";
 
 export default class FinalJury extends Entity {
@@ -77,7 +78,7 @@ export default class FinalJury extends Entity {
         );
         this.stateMachine.add(
             BossStateName.Sliding,
-            new FinalJuryIdlingState(this)
+            new FinalJurySlidingState(this)
         );
         this.stateMachine.add(
             BossStateName.Spinning,
