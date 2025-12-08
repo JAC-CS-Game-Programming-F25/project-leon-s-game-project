@@ -43,6 +43,43 @@ export const playerSpriteConfig = {
 		{x:128, y: 64, width: 32, height: 32}
 	],
 }
+export const silkAnimConfig = {
+	animation: [
+		{x: 0, y: 0, width: 405, height: 155},
+		{x: 0, y: 155, width: 405, height: 155},
+		{x: 0, y: 310, width: 405, height: 155},
+		{x: 0, y: 465, width: 405, height: 155},
+		{x: 0, y: 620, width: 405, height: 155},
+		{x: 0, y: 775, width: 405, height: 155},
+		{x: 0, y: 930, width: 405, height: 155},
+		{x: 0, y: 1085, width: 405, height: 155},
+		{x: 0, y: 1240, width: 405, height: 155},
+		{x: 0, y: 1395, width: 405, height: 155},
+		{x: 0, y: 1550, width: 405, height: 155},
+		{x: 0, y: 1705, width: 405, height: 155},
+		{x: 0, y: 1860, width: 405, height: 155},
+		{x: 0, y: 2015, width: 405, height: 155},
+		{x: 0, y: 2170, width: 405, height: 155},
+		{x: 0, y: 2325, width: 405, height: 155},
+		{x: 0, y: 2480, width: 405, height: 155},
+		{x: 0, y: 2635, width: 405, height: 155},
+		{x: 0, y: 2790, width: 405, height: 155},
+		{x: 0, y: 2945, width: 405, height: 155},
+		{x: 0, y: 3100, width: 405, height: 155},
+		{x: 0, y: 3255, width: 405, height: 155},
+		{x: 0, y: 3410, width: 405, height: 155},
+		{x: 0, y: 3565, width: 405, height: 155},
+		{x: 0, y: 3720, width: 405, height: 155},
+		{x: 0, y: 3875, width: 405, height: 155},
+		{x: 0, y: 4030, width: 405, height: 155},
+		{x: 0, y: 4185, width: 405, height: 155},
+		{x: 0, y: 4340, width: 405, height: 155},
+		{x: 0, y: 4495, width: 405, height: 155},
+		{x: 0, y: 4650, width: 405, height: 155},
+		{x: 0, y: 4805, width: 405, height: 155},
+		{x: 0, y: 4960, width: 405, height: 155},
+	]
+}
 
 export function loadPlayerSprites(spriteSheet, spriteConfig) {
 	const sprites = {};

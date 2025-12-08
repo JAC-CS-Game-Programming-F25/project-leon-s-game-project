@@ -1,4 +1,4 @@
-import { loadPlayerSprites, playerSpriteConfig } from "../../../config/SpriteConfig.js";
+import { loadPlayerSprites, playerSpriteConfig, silkAnimConfig } from "../../../config/SpriteConfig.js";
 import Vector from "../../../lib/Vector.js";
 import Collider from "../../../lib/Collider.js";
 import Animation from '../../../lib/Animation.js';
@@ -16,6 +16,7 @@ import PlayerDownSlashingState from "./PlayerDownSlashingState.js";
 import { oneInXChance } from "../../../lib/Random.js";
 import { PlayerConfig } from "../../../config/PlayerConfig.js";
 import { getKnockbackDirection } from "../../../lib/Collision.js";
+import PlayerBindingState from "./PlayerBindingState.js";
 
 export default class Player extends Entity {
     constructor(x, y, width, height, map, boss) {
@@ -61,12 +62,24 @@ export default class Player extends Entity {
             downR: this.playerSprites.downeffectR
         }
 
+        this.bindEffectSprites = loadPlayerSprites(images.get(ImageName.BindsSilkAnim), silkAnimConfig);
+
+        this.silkBindAnimation = new Animation(
+            this.bindEffectSprites.animation,
+            0.05,
+            1
+        );
+
         this.currentAnimation = this.playerAnimations.idle;
 
         this.activeHitboxes = [];
 
         this.stateMachine = new StateMachine();
 
+        this.stateMachine.add(
+            PlayerStateName.Binding,
+            new PlayerBindingState(this)
+        );
         this.stateMachine.add(
             PlayerStateName.Slashing,
             new PlayerSlashingState(this)

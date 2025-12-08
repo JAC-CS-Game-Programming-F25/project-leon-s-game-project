@@ -8,6 +8,7 @@ const PlayerStateName = {
 	Dying: 'dying',
 	Slashing: 'slashing',
 	Downslashing: 'downslashing',
+	Binding: 'binding'
 };
 
 export default PlayerStateName;

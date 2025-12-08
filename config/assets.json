@@ -19,6 +19,12 @@
       "height": 96
     },
     {
+      "name": "silkbindanim",
+      "path": "./../assets/images/BindSilkFullAnim.png",
+      "width": 405,
+      "height": 5115
+    },
+    {
       "name": "finaljury",
       "path": "./../assets/images/LastJudge.png",
       "width": 208,

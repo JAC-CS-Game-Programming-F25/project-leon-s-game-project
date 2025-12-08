@@ -5,6 +5,7 @@ import { debugOptions, input } from '../../globals.js';
 import Tile from '../../services/Tile.js';
 import CollisionDetector from '../../services/CollisionDetector.js';
 import Player from './Player.js';
+import PlayerStateName from '../../enums/PlayerStateName.js';
 
 /**
  * Base class for all player states.
@@ -36,7 +37,7 @@ export default class PlayerState extends State {
 	handleInput() {
 
 		if (input.isKeyPressed(Input.KEYS.Q)) {
-			this.player.Heal();
+			this.player.stateMachine.change(PlayerStateName.Binding);
 		}
 	}
 
