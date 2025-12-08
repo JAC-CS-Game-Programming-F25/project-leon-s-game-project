@@ -45,7 +45,7 @@ export default class FinalJurySlidingState extends FinalJuryState {
         this.pillarSpawnTimer += dt;
         // Create new rings periodically
             if (this.pillarSpawnTimer >= this.pillarSpawnCooldown) {
-                console.log("spawning pillar")
+                // console.log("spawning pillar")
                 this.spawnNewPillar();
                 this.pillarSpawnTimer = 0;
             }

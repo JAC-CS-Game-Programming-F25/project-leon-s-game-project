@@ -6,7 +6,7 @@ import { debugOptions } from "../../globals.js";
 
 
 export default class FirePillarCollider extends DamageCollider {
-    constructor(x,y, width, height, lifetime = 0.1, source = null, particleCount = 3) {
+    constructor(x,y, width, height, lifetime = 0.1, source = null, particleCount = 3, particleLifetime = 1500) {
         super(x,y,width, height, null, lifetime, source);
         this.fireParticles = [];
         this.fire = new Vector(
@@ -21,6 +21,7 @@ export default class FirePillarCollider extends DamageCollider {
 
         // the amount of particles to be generated per frame
         this.particleCount = particleCount;
+        this.particleLifetime = particleLifetime;
     }
     
 
@@ -33,7 +34,7 @@ export default class FirePillarCollider extends DamageCollider {
             const spawnX = this.position.x + getRandomPositiveInteger(0, this.dimensions.x);
             const spawnY = this.position.y + getRandomPositiveInteger(0, this.dimensions.y);
 
-            this.fireParticles.push(new Particle(spawnX, spawnY));
+            this.fireParticles.push(new Particle(spawnX, spawnY, this.particleLifetime));
         }
         
         this.fireParticles.forEach(particle => {
