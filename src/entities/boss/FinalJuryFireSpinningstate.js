@@ -1,4 +1,7 @@
+import { getRandomPositiveInteger } from "../../../lib/Random.js";
 import BossStateName from "../../enums/BossStateName.js";
+import SoundName from "../../enums/SoundName.js";
+import { sounds } from "../../globals.js";
 import FirePillarCollider from "../collidervariants/FirePillarCollider.js";
 import FinalJuryState from "./FinalJuryState.js";
 
@@ -23,10 +26,11 @@ export default class FinalJuryFireSpinningstate extends FinalJuryState {
     enter() {
         this.boss.currentAnimation = this.boss.finalJuryAnimations.spin;
         this.boss.currentAnimation.refresh();
-
+        sounds.play(SoundName.FireSpin);
         this.elapsedTime = 0;
         this.rings = [];
         this.ringSpawnTimer = 0;
+        this.chant();
     }
 
     update(dt) {
@@ -39,18 +43,19 @@ export default class FinalJuryFireSpinningstate extends FinalJuryState {
         if (this.elapsedTime < this.spinDuration) {
 
             if (this.ringSpawnTimer >= this.ringSpawnCooldown) {
-                this.spawnNewRing();
+                this.spawnNewRings();
                 this.ringSpawnTimer = 0;
             }
 
             this.updateRings(dt);
 
         } else {
+            sounds.stop(SoundName.FireSpin);
             this.boss.stateMachine.change(BossStateName.Idling);
         }
     }
 
-    spawnNewRing() {
+    spawnNewRings() {
         const cx = this.boss.position.x + this.boss.dimensions.x / 2;
         const cy = this.boss.position.y + this.boss.dimensions.y / 2;
 
@@ -65,7 +70,6 @@ export default class FinalJuryFireSpinningstate extends FinalJuryState {
                 colliders: []   // <- colliders stored here
             };
 
-            // Spawn ONE collider for every angle step
             for (let angle = 0; angle < Math.PI * 2; angle += this.angleStep) {
 
                 const finalAngle = angle + ring.angleOffset;
@@ -90,6 +94,7 @@ export default class FinalJuryFireSpinningstate extends FinalJuryState {
 
                 this.boss.map.damageColliders.push(collider);
             }
+            sounds.play(SoundName.FirePillarSummon1);
 
             this.rings.push(ring);
         }
@@ -117,5 +122,17 @@ export default class FinalJuryFireSpinningstate extends FinalJuryState {
 
         // Remove rings that are too large
         this.rings = this.rings.filter(r => r.radius < this.maxRingRadius);
+    }
+
+    chant() {
+        const chantId = getRandomPositiveInteger(3,4);
+        switch(chantId) {
+            case 3:
+                sounds.play(SoundName.Chant3);
+                break;
+            case 4:
+                sounds.play(SoundName.Chant4);
+                break;
+        }
     }
 }

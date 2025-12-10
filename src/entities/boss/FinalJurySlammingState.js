@@ -1,5 +1,6 @@
 import BossStateName from "../../enums/BossStateName.js";
-import { timer } from "../../globals.js";
+import SoundName from "../../enums/SoundName.js";
+import { sounds, timer } from "../../globals.js";
 import FirePillarCollider from "../collidervariants/FirePillarCollider.js";
 import FinalJuryState from "./FinalJuryState.js";
 
@@ -11,6 +12,7 @@ export default class FinalJurySlammingState extends FinalJuryState {
     enter() {
         this.boss.currentAnimation = this.boss.finalJuryAnimations.slam;
         this.boss.currentAnimation.refresh();
+        sounds.play(SoundName.BossSlamVoice);
     }
 
     update(dt) {
@@ -22,6 +24,7 @@ export default class FinalJurySlammingState extends FinalJuryState {
     handleDecision() { 
         if(this.boss.velocity.y === 0 && this.boss.currentAnimation.isDone()) {
             this.generateFireShockwaveColliders();
+            sounds.play(SoundName.BossSlam);
             this.boss.stateMachine.change(BossStateName.Idling);
         }
     }
@@ -41,6 +44,7 @@ export default class FinalJurySlammingState extends FinalJuryState {
         for (let i = 0; i < waveCount; i++) {
             const x = baseX + spacing * (i + 1) - 40;
             timer.wait(i * delay).then(() => {
+                sounds.play(SoundName.FireShockwave);
                 this.boss.map.damageColliders.push(
                     new FirePillarCollider(x, baseY, pillarWidth, pillarHeight, lifetime, this.boss, 5)
                 );
@@ -51,6 +55,7 @@ export default class FinalJurySlammingState extends FinalJuryState {
         for (let i = 0; i < waveCount; i++) {
             const x = baseX - spacing * (i + 1) + 40;
             timer.wait(i * delay).then(() => {
+                sounds.play(SoundName.FireShockwave);
                 this.boss.map.damageColliders.push(
                     new FirePillarCollider(x, baseY, pillarWidth, pillarHeight, lifetime, this.boss, 5)
                 );

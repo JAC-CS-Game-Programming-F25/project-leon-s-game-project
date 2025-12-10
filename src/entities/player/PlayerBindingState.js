@@ -1,4 +1,6 @@
 import PlayerStateName from "../../enums/PlayerStateName.js";
+import SoundName from "../../enums/SoundName.js";
+import { sounds } from "../../globals.js";
 import PlayerState from "./PlayerState.js";
 
 export default class PlayerBindingState extends PlayerState {
@@ -13,7 +15,10 @@ export default class PlayerBindingState extends PlayerState {
 
         this.player.currentAnimation = this.player.playerAnimations.bind;
         this.player.currentAnimation.refresh();
+        sounds.play(SoundName.BindVoice);
         this.player.silkBindAnimation.refresh();
+        sounds.play(SoundName.BindLoop);
+
     }
 
     update(dt) {
@@ -27,6 +32,8 @@ export default class PlayerBindingState extends PlayerState {
     handleDecision() {
 		if(this.player.silkBindAnimation.isDone()) {
             this.player.Heal();
+            sounds.stop(SoundName.BindLoop);
+            sounds.play(SoundName.BindEnd);
             this.player.stateMachine.change(PlayerStateName.Falling);
         }
 	}

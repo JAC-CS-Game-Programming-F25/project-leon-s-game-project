@@ -1,5 +1,7 @@
 import { BossConfig } from "../../../config/BossConfig.js";
 import BossStateName from "../../enums/BossStateName.js";
+import SoundName from "../../enums/SoundName.js";
+import { sounds } from "../../globals.js";
 import FinalJuryState from "./FinalJuryState.js";
 
 export default class FinalJuryJumpingState extends FinalJuryState {
@@ -30,7 +32,7 @@ export default class FinalJuryJumpingState extends FinalJuryState {
         boss.velocity.x = boss.facingRight ? BossConfig.maxSpeed : -BossConfig.maxSpeed;
 
         boss.currentAnimation = boss.finalJuryAnimations.jump;
-
+        sounds.play(SoundName.BossJump);
         boss.isOnGround = false;
     }
 

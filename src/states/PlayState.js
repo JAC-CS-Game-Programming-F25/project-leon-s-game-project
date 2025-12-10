@@ -60,8 +60,12 @@ export default class PlayState extends State {
 		this.rainGravity = new Vector(0, 600);
 		this.wind = new Vector(200, 0);
 
-		sounds.play(MusicName.HallowedStepsOverworld);
-		//sounds.play(MusicName.LastJudgeTheme);
+		
+		
+	}
+
+	enter() {
+		sounds.play(MusicName.BossTheme);
 	}
 
 	/**

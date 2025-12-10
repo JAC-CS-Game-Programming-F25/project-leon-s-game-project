@@ -1,6 +1,7 @@
 import { getRandomPositiveNumber, oneInXChance } from "../../../lib/Random.js";
 import BossStateName from "../../enums/BossStateName.js";
-import { timer } from "../../globals.js";
+import SoundName from "../../enums/SoundName.js";
+import { sounds, timer } from "../../globals.js";
 import FinalJuryState from "./FinalJuryState.js";
 
 export default class FinalJuryIdlingState extends FinalJuryState {
@@ -15,7 +16,10 @@ export default class FinalJuryIdlingState extends FinalJuryState {
 		this.boss.velocity.y = 0;
 
 		this.boss.currentAnimation = this.boss.finalJuryAnimations.idle;
-
+        if(oneInXChance(5)) {
+            sounds.play(SoundName.BossTaunt);
+        }
+        
         this.isOnCooldown = true;
         this.cooldown = getRandomPositiveNumber(0.5, 1.5);
         timer.wait(this.cooldown).then(() => {
@@ -38,7 +42,7 @@ export default class FinalJuryIdlingState extends FinalJuryState {
             this.boss.stateMachine.change(BossStateName.Jumping);
         } else if(oneInXChance(50)) {
             this.boss.stateMachine.change(BossStateName.Spinning);
-        } else if(oneInXChance(120)) {
+        } else if(oneInXChance(50)) {
             this.boss.stateMachine.change(BossStateName.Sliding);
         }
     }

@@ -7,6 +7,7 @@ import {
     context,stateMachine
 } from './globals.js'
 import PlayState from "./states/PlayState.js";
+import TitleScreenState from "./states/TitleScreenState.js";
 
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
@@ -20,8 +21,9 @@ const mapDefinition = await fetch('./config/tilemap.json').then((response) =>
 );
 
 stateMachine.add(GameStateName.Play, new PlayState(mapDefinition));
+stateMachine.add(GameStateName.TitleScreen, new TitleScreenState());
 
-stateMachine.change(GameStateName.Play);
+stateMachine.change(GameStateName.TitleScreen);
 
 const game = new Game(stateMachine, context, canvas.width, canvas.height);
 

@@ -1,4 +1,7 @@
+import { getRandomPositiveInteger } from "../../../lib/Random.js";
 import PlayerStateName from "../../enums/PlayerStateName.js";
+import SoundName from "../../enums/SoundName.js";
+import { sounds } from "../../globals.js";
 import DamageCollider from "../collidervariants/DamageCollider.js";
 import PlayerState from "./PlayerState.js"
 
@@ -16,6 +19,23 @@ export default class PlayerSlashingState extends PlayerState {
 
         this.savedVelocityX = this.player.velocity.x;
         this.spawnedHitbox = false;
+
+        const slashId = getRandomPositiveInteger(1,4);
+        switch(slashId) {
+            case 1:
+                sounds.play(SoundName.Slash1);
+                break;
+            case 2:
+                sounds.play(SoundName.Slash2);
+                break;
+            case 3:
+                sounds.play(SoundName.Slash3);
+                break;
+            case 4:
+                sounds.play(SoundName.Slash4);
+                break;
+        }
+        
     }
 
     update(dt) {

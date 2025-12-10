@@ -1,6 +1,8 @@
 const ImageName = {
 	Tiles: 'tiles',
 	Background: 'background',
+	TitleScreen: 'titlescreen',
+	TitleCard: 'titlecard',
 	HornetFull: 'hornetfull',
 	BindsSilkAnim: 'silkbindanim',
 	FinalJury: 'finaljury',

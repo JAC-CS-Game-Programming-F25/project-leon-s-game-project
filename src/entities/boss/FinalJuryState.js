@@ -1,6 +1,8 @@
 import { BossConfig } from "../../../config/BossConfig.js";
+import { getRandomPositiveInteger, oneInXChance } from "../../../lib/Random.js";
 import State from "../../../lib/State.js";
-import { debugOptions } from "../../globals.js";
+import SoundName from "../../enums/SoundName.js";
+import { debugOptions, sounds } from "../../globals.js";
 import CollisionDetector from "../../services/CollisionDetector.js";
 import Tile from "../../services/Tile.js";
 
@@ -16,6 +18,10 @@ export default class FinalJuryState extends State {
         this.checkDirection();
 		this.applyGravity(dt);
 		this.updatePosition(dt);
+        if(oneInXChance(1000)) {
+            this.chant();
+        }
+        
 		this.boss.currentAnimation.update(dt);
 	}
 
@@ -111,5 +117,17 @@ export default class FinalJuryState extends State {
 
         // Round vertical position to avoid sub-pixel rendering
         this.boss.position.y = Math.round(this.boss.position.y);
+    }
+
+    chant() {
+        const chantId = getRandomPositiveInteger(1,2);
+        switch(chantId) {
+            case 1:
+                sounds.play(SoundName.Chant1);
+                break;
+            case 2:
+                sounds.play(SoundName.Chant2);
+                break;
+        }
     }
 }

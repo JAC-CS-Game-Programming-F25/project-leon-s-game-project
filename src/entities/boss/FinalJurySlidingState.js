@@ -1,5 +1,7 @@
 import Vector from "../../../lib/Vector.js";
 import BossStateName from "../../enums/BossStateName.js";
+import SoundName from "../../enums/SoundName.js";
+import { sounds } from "../../globals.js";
 import FirePillarCollider from "../collidervariants/FirePillarCollider.js";
 import FinalJuryState from "./FinalJuryState.js";
 
@@ -34,6 +36,7 @@ export default class FinalJurySlidingState extends FinalJuryState {
         } else {
             this.boss.velocity.x -= 200
         }
+        sounds.play(SoundName.BossJump);
 
         
     }
@@ -60,10 +63,11 @@ export default class FinalJurySlidingState extends FinalJuryState {
         const pillarWidth = 32;
         const pillarHeight = 160;
         const lifetime = 1;
-
         this.boss.map.damageColliders.push(
+            
             new FirePillarCollider(baseX, baseY, pillarWidth, pillarHeight, lifetime, this.boss, 8)
         );
+        sounds.play(SoundName.FirePillarSummon);
     }
 
     handleDecision() { 

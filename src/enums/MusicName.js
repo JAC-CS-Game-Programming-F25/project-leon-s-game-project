@@ -7,8 +7,8 @@ const MusicName = {
 	// Invincible: 'invincible',
 	// PowerUp: 'powerup',
 	// Pipe: 'pipe',
-	LastJudgeTheme: '28-LastJudge',
-	HallowedStepsOverworld: '27-BlastedSteps'
+	BossTheme: 'BossTheme',
+	HallowedStepsOverworld: 'TitleMusic'
 
 };
 
