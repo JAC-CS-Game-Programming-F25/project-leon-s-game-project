@@ -106,7 +106,7 @@ export default class FinalJury extends Entity {
 
     getHurt(source) {
         this.isGraced = true;
-        this.health -= 10;
+        this.health -= this.player.damageValue;
         timer.addTask(
             () => {},
             0.1,
@@ -125,4 +125,17 @@ export default class FinalJury extends Entity {
 	render(context) {
         this.stateMachine.render(context);
 	}
+
+    reset() {
+        this.position.x = this.initialPosition.x;
+        this.position.y = this.initialPosition.y;
+        this.facingRight = false;
+
+        this.health = this.totalHealth;
+
+        this.isDead = false;
+        this.isDying = false;
+
+        this.stateMachine.change(BossStateName.Idling);
+    }
 }

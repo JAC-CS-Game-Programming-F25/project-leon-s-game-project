@@ -66,6 +66,8 @@ export const debugOptions = {
 	cameraCrosshair: false,
 	playerCollision: false,
 	bossCollision: false,
+	// this is for those who cannot defeat the boss
+	easyMode: false,
 	watchPanel: false,
 };
 

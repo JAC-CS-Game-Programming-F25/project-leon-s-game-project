@@ -103,6 +103,11 @@ export default class Map {
 		}
 	}
 
+	reset() {
+		this.damageColliders = [];
+		this.fireCircleParticles = [];
+	}
+
 	/**
 	 * Retrieves a block at the specified coordinates.
 	 * @param {number} x - The x-coordinate.

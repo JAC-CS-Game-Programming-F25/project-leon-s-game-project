@@ -26,12 +26,16 @@ export default class TitleScreenState extends State {
 		timer.update(dt);
 
 		if (input.isKeyPressed(Input.KEYS.ENTER)) {
-			stateMachine.change(GameStateName.Play);
+			stateMachine.change(GameStateName.Transition, {
+				fromState: this,
+				toState: stateMachine.states[GameStateName.Play],
+			});
 		}
 	}
 
 	render(context) {
 		images.render(ImageName.TitleScreen,0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+		images.render(ImageName.GameIcon,-2,2,32,32);
 
 		images.render(ImageName.TitleCard,0,20,CANVAS_WIDTH-5,100)
 	}

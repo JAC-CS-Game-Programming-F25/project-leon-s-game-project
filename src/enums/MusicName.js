@@ -8,7 +8,8 @@ const MusicName = {
 	// PowerUp: 'powerup',
 	// Pipe: 'pipe',
 	BossTheme: 'BossTheme',
-	HallowedStepsOverworld: 'TitleMusic'
+	HallowedStepsOverworld: 'TitleMusic',
+	VictoryMusic: 'VictoryMusic',
 
 };
 

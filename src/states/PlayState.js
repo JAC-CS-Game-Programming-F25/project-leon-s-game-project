@@ -2,7 +2,7 @@ import State from '../../lib/State.js';
 import Debug from '../../lib/Debug.js';
 import Map from '../services/Map.js';
 import Camera from '../services/Camera.js';
-import { canvas, CANVAS_WIDTH, debugOptions, images, sounds, timer } from '../globals.js';
+import { canvas, CANVAS_WIDTH, debugOptions, images, sounds, stateMachine, timer } from '../globals.js';
 import Player from '../entities/player/Player.js';
 import Tile from '../services/Tile.js';
 import ImageName from '../enums/ImageName.js';
@@ -13,6 +13,7 @@ import UserInterface from '../services/UserInterface.js';
 import FinalJury from '../entities/boss/FinalJury.js';
 import { isAABBCollision } from '../../lib/Collision.js';
 import { getRandomNumber } from '../../lib/Random.js';
+import GameStateName from '../enums/GameStateName.js';
 
 /**
  * Represents the main play state of the game.
@@ -30,7 +31,7 @@ export default class PlayState extends State {
 		
 		this.boss = new FinalJury(350, 30, 29, 50, this.map);
 
-		this.player = new Player(50, 150, 11, 24, this.map, this.boss);
+		this.player = new Player(50, 248, 11, 24, this.map, this.boss);
 
 		this.boss.player = this.player;
 
@@ -66,6 +67,9 @@ export default class PlayState extends State {
 
 	enter() {
 		sounds.play(MusicName.BossTheme);
+		this.boss.reset();
+		this.player.reset();
+		this.map.reset();
 	}
 
 	/**
@@ -99,6 +103,14 @@ export default class PlayState extends State {
 			particle.update(dt);
 		});
 
+		if(this.boss.health <= 0) {
+
+			sounds.stopAll();
+			stateMachine.change(GameStateName.Transition, {
+				fromState: this,
+				toState: stateMachine.states[GameStateName.Victory],
+			});
+		}
 	}
 
 	/**

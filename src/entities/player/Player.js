@@ -4,7 +4,7 @@ import Collider from "../../../lib/Collider.js";
 import Animation from '../../../lib/Animation.js';
 import ImageName from "../../enums/ImageName.js";
 import Entity from "../Entity.js";
-import { images, timer } from '../../globals.js';
+import { debugOptions, images, sounds, timer } from '../../globals.js';
 import StateMachine from "../../../lib/StateMachine.js";
 import PlayerStateName from "../../enums/PlayerStateName.js";
 import PlayerIdlingState from "./PlayerIdlingState.js";
@@ -17,6 +17,7 @@ import { oneInXChance } from "../../../lib/Random.js";
 import { PlayerConfig } from "../../../config/PlayerConfig.js";
 import { getKnockbackDirection } from "../../../lib/Collision.js";
 import PlayerBindingState from "./PlayerBindingState.js";
+import SoundName from "../../enums/SoundName.js";
 
 export default class Player extends Entity {
     constructor(x, y, width, height, map, boss) {
@@ -32,13 +33,19 @@ export default class Player extends Entity {
         this.map = map;
         this.boss = boss;
         this.facingRight = true;
-
-        this.totalHealth = 12;
+        if(debugOptions.easyMode) {
+            this.totalHealth = 12;
+        } else {
+            this.totalHealth = 5;
+        }
         this.health = this.totalHealth;
         // grace flag for when the player gets hit while big to void double tap
 		this.isGraced = false;
         // player visibility for flashing implementation
 		this.isVisible = true;
+
+        this.isDead = false;
+        this.isDying = false;
 
         this.playerSprites = loadPlayerSprites(
             images.get(ImageName.HornetFull),
@@ -60,6 +67,11 @@ export default class Player extends Entity {
             baseR: this.playerSprites.slasheffectR,
             downL: this.playerSprites.downeffectL,
             downR: this.playerSprites.downeffectR
+        }
+        if(debugOptions.easyMode) {
+            this.damageValue = 50;
+        } else {
+            this.damageValue = 10;
         }
 
         this.bindEffectSprites = loadPlayerSprites(images.get(ImageName.BindsSilkAnim), silkAnimConfig);
@@ -133,6 +145,7 @@ export default class Player extends Entity {
     getHurt(source) {
         this.isGraced = true;
         this.health -= 2;
+        this.grunt();
         timer.addTask(
             () => {this.isVisible = !this.isVisible},
             0.1,
@@ -144,8 +157,19 @@ export default class Player extends Entity {
         )
     }
 
+    grunt() {
+        if(this.health < 2){
+            sounds.play(SoundName.WeakVoice);
+        } else if(oneInXChance(2)) {
+            sounds.play(SoundName.GruntHurtUgh);
+        } else {
+            sounds.play(SoundName.GruntHurtHah);
+        }
+    }
+
     pogoBounce() {
         this.velocity.y = PlayerConfig.bounceVelocity
+        sounds.play(SoundName.HaHaVoice);
         this.isOnGround = false;
     }
 
@@ -177,5 +201,20 @@ export default class Player extends Entity {
             this.stateMachine.render(context);
         }
 
+    }
+
+    reset() {
+        this.position.x = this.initialPosition.x;
+        this.position.y = this.initialPosition.y;
+        this.facingRight = true;
+
+        this.health = this.totalHealth;
+
+        this.isDead = false;
+        this.isDying = false;
+        this.isGraced = false;
+        this.isVisible = true;
+
+        this.stateMachine.change(PlayerStateName.Idling);
     }
 }
