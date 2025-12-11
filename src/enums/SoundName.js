@@ -15,6 +15,7 @@ const SoundName = {
 	WeakVoice: 'Garama-weak',
 	GruntHurtUgh: 'honnet-grunt-1',
 	GruntHurtHah: 'honnet-grunt-2',
+	GruntDeath: 'defeat-grunt',
 	JumpVoice: 'honnet-jump',
 	HaHaVoice: 'honnet-voice',
 

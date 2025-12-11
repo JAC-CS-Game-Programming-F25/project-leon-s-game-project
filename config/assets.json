@@ -145,6 +145,13 @@
       "loop": false
     },
     {
+      "name": "defeat-grunt",
+      "path": "./../assets/sounds/defeat-grunt.mp3",
+      "size": 25,
+      "volume": 1,
+      "loop": false
+    },
+    {
       "name": "bind1",
       "path": "./../assets/sounds/bind1.wav",
       "size": 25,

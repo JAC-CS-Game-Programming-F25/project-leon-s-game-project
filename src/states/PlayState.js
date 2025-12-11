@@ -111,6 +111,15 @@ export default class PlayState extends State {
 				toState: stateMachine.states[GameStateName.Victory],
 			});
 		}
+
+		if (this.player.isDead) {
+			sounds.stopAll();
+			stateMachine.change(GameStateName.Transition, {
+				fromState: this,
+				toState: stateMachine.states[GameStateName.TitleScreen],
+			});
+
+		}
 	}
 
 	/**

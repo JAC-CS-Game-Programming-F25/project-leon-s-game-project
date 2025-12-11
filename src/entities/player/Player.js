@@ -18,6 +18,7 @@ import { PlayerConfig } from "../../../config/PlayerConfig.js";
 import { getKnockbackDirection } from "../../../lib/Collision.js";
 import PlayerBindingState from "./PlayerBindingState.js";
 import SoundName from "../../enums/SoundName.js";
+import PlayerDyingState from "./PlayerDyingState.js";
 
 export default class Player extends Entity {
     constructor(x, y, width, height, map, boss) {
@@ -89,6 +90,10 @@ export default class Player extends Entity {
         this.stateMachine = new StateMachine();
 
         this.stateMachine.add(
+            PlayerStateName.Dying,
+            new PlayerDyingState(this)
+        );
+        this.stateMachine.add(
             PlayerStateName.Binding,
             new PlayerBindingState(this)
         );
@@ -123,7 +128,7 @@ export default class Player extends Entity {
      * @param {number} dt - The time passed since the last update.
      */
     update(dt) {
-        if (this.isDying) return
+        if (this.isDying || this.isDead) return
         this.checkBossCollison();
         this.checkDamageColliderCollisions();
         this.stateMachine.update(dt);
@@ -155,6 +160,10 @@ export default class Player extends Entity {
                 this.isVisible = true;
             }
         )
+
+        if (this.health <= 0) {
+            this.stateMachine.change(PlayerStateName.Dying);
+        }
     }
 
     grunt() {
@@ -201,6 +210,10 @@ export default class Player extends Entity {
             this.stateMachine.render(context);
         }
 
+    }
+
+    die() {
+        this.isDead = true;
     }
 
     reset() {
