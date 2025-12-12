@@ -4,6 +4,7 @@ import GameStateName from "../enums/GameStateName.js";
 import ImageName from "../enums/ImageName.js";
 import MusicName from "../enums/MusicName.js";
 import { CANVAS_HEIGHT, CANVAS_WIDTH, images, input, sounds, stateMachine, timer } from "../globals.js";
+import { Stats } from "../services/Stats.js";
 
 export default class VictoryState extends State {
 	constructor() {
@@ -21,7 +22,9 @@ export default class VictoryState extends State {
 	enter() {
 		sounds.stopAll();
         sounds.play(MusicName.VictoryMusic);
+        localStorage.removeItem("songsilk_save");
 
+        Stats.addVictory();
         // Start credit roll below the screen
         this.scrollY = CANVAS_HEIGHT;
 	}

@@ -10,6 +10,7 @@ import PlayState from "./states/PlayState.js";
 import TitleScreenState from "./states/TitleScreenState.js";
 import TransitionState from "./states/TransitionState.js";
 import VictoryState from "./states/VictoryState.js";
+import InstructionScreenState from "./states/InstructionScreenState.js";
 
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
@@ -24,6 +25,7 @@ const mapDefinition = await fetch('./config/tilemap.json').then((response) =>
 stateMachine.add(GameStateName.Victory, new VictoryState());
 stateMachine.add(GameStateName.Transition, new TransitionState());
 stateMachine.add(GameStateName.Play, new PlayState(mapDefinition));
+stateMachine.add(GameStateName.Instruction, new InstructionScreenState());
 stateMachine.add(GameStateName.TitleScreen, new TitleScreenState());
 
 stateMachine.change(GameStateName.TitleScreen);

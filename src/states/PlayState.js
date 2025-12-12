@@ -70,6 +70,17 @@ export default class PlayState extends State {
 		this.boss.reset();
 		this.player.reset();
 		this.map.reset();
+
+		this.loadGame();
+
+		this.beforeUnloadHandler = () => this.saveGame();
+
+		window.addEventListener("beforeunload", this.beforeUnloadHandler);
+	}
+
+	exit() {
+		window.removeEventListener("beforeunload", this.beforeUnloadHandler);
+		this.beforeUnloadHandler = null;
 	}
 
 	/**
@@ -120,6 +131,39 @@ export default class PlayState extends State {
 			});
 
 		}
+	}
+
+	saveGame() {
+		localStorage.setItem("songsilk_save", JSON.stringify({
+			player: {
+				x: this.player.position.x,
+				y: this.player.position.y,
+				health: this.player.health,
+			},
+			boss: {
+				x: this.boss.position.x,
+				y: this.boss.position.y,
+				health: this.boss.health,
+			}
+		}));
+	}
+
+	loadGame() {
+		const data = JSON.parse(localStorage.getItem("songsilk_save"));
+
+		if(!data) return false;
+
+		// === Restore player ===
+		this.player.position.x = data.player.x;
+		this.player.position.y = data.player.y;
+		this.player.health = data.player.health;
+
+		// === Restore boss ===
+		this.boss.position.x = data.boss.x;
+		this.boss.position.y = data.boss.y;
+		this.boss.health = data.boss.health;
+
+		return true;
 	}
 
 	/**

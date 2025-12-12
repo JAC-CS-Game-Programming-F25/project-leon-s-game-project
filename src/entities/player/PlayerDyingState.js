@@ -1,5 +1,6 @@
 import SoundName from "../../enums/SoundName.js";
 import { sounds, timer } from "../../globals.js";
+import { Stats } from "../../services/Stats.js";
 import PlayerState from "./PlayerState.js";
 
 export default class PlayerDyingState extends PlayerState {
@@ -12,6 +13,9 @@ export default class PlayerDyingState extends PlayerState {
         this.player.currentAnimation = this.player.playerAnimations.death;
         this.player.isDying = true;
         sounds.play(SoundName.GruntDeath);
+        localStorage.removeItem("songsilk_save");
+
+        Stats.addDeath();
         timer.addTask(
             () => {},
             0.1,
