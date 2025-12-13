@@ -4,7 +4,8 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<title>Game Name</title>
+		<title>SongSilk</title>
+		<link rel="icon" type="image/x-icon" href="./assets/images/SongSilkIcon.ico">
 
 		<style>
 			* {
@@ -13,56 +14,59 @@
 
 			body {
 				display: flex;
+				flex-direction: column;
 				justify-content: center;
 				align-items: center;
 				height: 100vh;
 				margin: 0;
-				background-color: #121212;
+				background-color: #331717;
+				font-family: monospace;
 			}
 
 			canvas {
-				background-color: rgb(208, 244, 247);
+				background-color: #0161bd;
 				outline: none;
-				/*
-			Uncomment this if you're doing a retro-style game.
-			image-rendering: crisp-edges;
-			image-rendering: pixelated;
-			*/
+				image-rendering: crisp-edges;
+				image-rendering: pixelated;
+			}
+
+			#controlPanel {
+				display: flex;
+				justify-content: space-around;
+				background-color: #121212;
+				color: white;
+				width: 800px;
+				border-radius: 0 0 1rem 1rem;
+				padding-bottom: 1rem;
+			}
+
+			#controlPanel h2 {
+				text-align: center;
+			}
+
+			.control {
+				display: flex;
+				flex-direction: column;
+				width: 100%;
+			}
+
+			.control label {
+				display: flex;
+				justify-content: space-between;
+			}
+
+			.control input[type='range'] {
+				width: 100%;
+			}
+
+			.control input[type='checkbox'] {
+				justify-content: flex-start;
 			}
 		</style>
 	</head>
 
 	<body>
-		<ol style="color: white">
-			<li>
-				Read the
-				<a
-					href="https://vikramsinghmtl.github.io/420-5P6-Game-Programming/project/requirements"
-					>project requirements</a
-				>.
-			</li>
-			<li>
-				Replace the sample proposal in this repo with the one for your
-				game idea.
-			</li>
-			<li>Get the proposal greenlit by Vik.</li>
-			<li>
-				Place any assets in <code>assets/</code> and remember to update
-				<code>src/config.json</code>.
-			</li>
-			<li>
-				Decide on a height and width inside <code>src/globals.js</code>.
-				The height and width will most likely be determined based on the
-				size of the assets you find.
-			</li>
-			<li>
-				Start building the individual components of your game,
-				constantly referring to the proposal you wrote to keep yourself
-				on track.
-			</li>
-			<li>Delete this list from <code>index.html</code>.</li>
-			<li>Good luck, you got this!</li>
-		</ol>
-		<script type="module" src="./src/main.js"></script>
+		<!-- <img src="./assets/images/Hallowed StepsFinal Jury.png" width="500px"/> -->
+				<script type="module" src="./src/main.js"></script>
 	</body>
 </html>
