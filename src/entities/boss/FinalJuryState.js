@@ -1,6 +1,7 @@
 import { BossConfig } from "../../../config/BossConfig.js";
 import { getRandomPositiveInteger, oneInXChance } from "../../../lib/Random.js";
 import State from "../../../lib/State.js";
+import BossStateName from "../../enums/BossStateName.js";
 import SoundName from "../../enums/SoundName.js";
 import { debugOptions, sounds } from "../../globals.js";
 import CollisionDetector from "../../services/CollisionDetector.js";
@@ -18,6 +19,9 @@ export default class FinalJuryState extends State {
         this.checkDirection();
 		this.applyGravity(dt);
 		this.updatePosition(dt);
+        if (this.boss.numberOfHits == this.boss.staggerThreshold && !this.boss.isStunned) {
+            this.boss.stateMachine.change(BossStateName.Stunning);
+        }
         if(oneInXChance(1000)) {
             this.chant();
         }

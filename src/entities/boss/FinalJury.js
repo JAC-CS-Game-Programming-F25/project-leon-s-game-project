@@ -1,10 +1,12 @@
 import { finalJurySpriteConfig, loadFinalJurySprites } from "../../../config/SpriteConfig.js";
 import Animation from "../../../lib/Animation.js";
+import { getRandomPositiveInteger } from "../../../lib/Random.js";
 import StateMachine from "../../../lib/StateMachine.js";
 import Vector from "../../../lib/Vector.js";
 import BossStateName from "../../enums/BossStateName.js";
 import ImageName from "../../enums/ImageName.js";
-import { images, timer } from "../../globals.js";
+import SoundName from "../../enums/SoundName.js";
+import { images, sounds, timer } from "../../globals.js";
 import Entity from "../Entity.js";
 import FinalJuryFallingState from "./FinalJuryFallingState.js";
 import FinalJuryFireSpinningstate from "./FinalJuryFireSpinningstate.js";
@@ -12,6 +14,7 @@ import FinalJuryIdlingState from "./FinalJuryIdlingState.js";
 import FinalJuryJumpingState from "./FinalJuryJumpingState.js";
 import FinalJurySlammingState from "./FinalJurySlammingState.js";
 import FinalJurySlidingState from "./FinalJurySlidingState.js";
+import FinalJuryStunnedState from "./FinalJuryStunnedState.js";
 import FinalJuryWhippingState from "./FinalJuryWhippingState.js";
 
 export default class FinalJury extends Entity {
@@ -30,8 +33,14 @@ export default class FinalJury extends Entity {
         this.player = player;
         this.facingRight = false;
 
-        this.totalHealth = 500;
+        this.totalHealth = 720;
         this.health = this.totalHealth;
+
+        this.numberOfHits = 0;
+        // number of hits required to stun Final Jury
+        this.staggerThreshold = 14;
+
+        this.isStunned = false;
 
         this.FinalJurySprites = loadFinalJurySprites(
             images.get(ImageName.FinalJury),
@@ -55,10 +64,9 @@ export default class FinalJury extends Entity {
         this.currentAnimation = this.finalJuryAnimations.idle;
 
         this.stateMachine = new StateMachine();
-        // TODO: Implement the boss states
         this.stateMachine.add(
             BossStateName.Stunning,
-            new FinalJuryIdlingState(this)
+            new FinalJuryStunnedState(this)
         );
         this.stateMachine.add(
             BossStateName.Whipping,
@@ -88,6 +96,8 @@ export default class FinalJury extends Entity {
             BossStateName.Idling,
             new FinalJuryIdlingState(this)
         );
+
+        this.lastAttack = null;
     }
 
     /**
@@ -107,6 +117,8 @@ export default class FinalJury extends Entity {
     getHurt(source) {
         this.isGraced = true;
         this.health -= this.player.damageValue;
+        this.numberOfHits += 1;
+        this.grunt();
         timer.addTask(
             () => {},
             0.1,
@@ -115,7 +127,21 @@ export default class FinalJury extends Entity {
                 this.isGraced = false;
             }
         );
-        console.log(`${this.health}/${this.totalHealth}`);
+    }
+
+    grunt() {
+        const gruntId = getRandomPositiveInteger(1,3);
+        switch(gruntId) {
+            case 1:
+                sounds.play(SoundName.BossStun1);
+                break;
+            case 2:
+                sounds.play(SoundName.BossStun2);
+                break;
+            case 3:
+                sounds.play(SoundName.BossStun3);
+                break;
+        }
     }
 
     /**

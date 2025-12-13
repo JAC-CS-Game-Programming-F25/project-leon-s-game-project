@@ -134,8 +134,6 @@ export default class Camera {
 		// Round camera position to prevent sub-pixel rendering
 		this.position.x = Math.round(this.position.x);
 		this.position.y = Math.round(this.position.y);
-		// console.log(this.position.x);
-		// console.log(this.position.y);
 	}
 
 	/**

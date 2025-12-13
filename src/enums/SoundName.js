@@ -19,7 +19,7 @@ const SoundName = {
 	JumpVoice: 'honnet-jump',
 	HaHaVoice: 'honnet-voice',
 
-	// Boss grunts when stunned
+	// Boss grunts when stunned/hit
 	BossStun1: '0-1-stun',
 	BossStun2: '0-2-stun',
 	BossStun3: '0-3-stun',

@@ -15,7 +15,7 @@ export default class FinalJurySlidingState extends FinalJuryState {
         this.pillarSpawnCooldown = 0.6;
         this.pillarSpawnTimer = 0;
 
-        this.previousDimensions = this.boss.dimensions
+        this.previousDimensions = this.boss.dimensions;
         this.isSliding = false;
     }
 
@@ -48,7 +48,6 @@ export default class FinalJurySlidingState extends FinalJuryState {
         this.pillarSpawnTimer += dt;
         // Create new rings periodically
             if (this.pillarSpawnTimer >= this.pillarSpawnCooldown) {
-                // console.log("spawning pillar")
                 this.spawnNewPillar();
                 this.pillarSpawnTimer = 0;
             }

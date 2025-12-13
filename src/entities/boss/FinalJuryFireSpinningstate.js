@@ -33,6 +33,10 @@ export default class FinalJuryFireSpinningstate extends FinalJuryState {
         this.chant();
     }
 
+    exit() {
+        sounds.stop(SoundName.FireSpin);
+    }
+
     update(dt) {
         super.update(dt);
         this.boss.currentAnimation.update(dt);

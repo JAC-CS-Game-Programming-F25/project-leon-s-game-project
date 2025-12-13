@@ -31,7 +31,6 @@ export default class DamageCollider extends Entity {
         if (target?.isBoss && this.source instanceof Player) {
             // check if player slash hit the boss
             if(didCollide(this, target) && !target.isGraced) {
-                console.log("Player hit boss");
                 target.getHurt();
 
                 // Apply vertical knockback on the player if downslash was performed
