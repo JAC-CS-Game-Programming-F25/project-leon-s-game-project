@@ -197,7 +197,21 @@
       "name": "BossTheme",
       "path": "./../assets/sounds/25-Red-Maiden.mp3",
       "size": 25,
-      "volume": 0.4,
+      "volume": 0.6,
+      "loop": true
+    },
+    {
+      "name": "BossTheme1",
+      "path": "./../assets/sounds/28-LastJudge.mp3",
+      "size": 25,
+      "volume": 0.5,
+      "loop": true
+    },
+    {
+      "name": "BossTheme2",
+      "path": "./../assets/sounds/44-CrustKing-Khann.mp3",
+      "size": 25,
+      "volume": 1,
       "loop": true
     },
     {

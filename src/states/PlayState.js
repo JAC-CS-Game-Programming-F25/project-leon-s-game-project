@@ -12,7 +12,7 @@ import Vector from '../../lib/Vector.js';
 import UserInterface from '../services/UserInterface.js';
 import FinalJury from '../entities/boss/FinalJury.js';
 import { isAABBCollision } from '../../lib/Collision.js';
-import { getRandomNumber } from '../../lib/Random.js';
+import { getRandomNumber, getRandomPositiveInteger } from '../../lib/Random.js';
 import GameStateName from '../enums/GameStateName.js';
 
 /**
@@ -66,16 +66,31 @@ export default class PlayState extends State {
 	}
 
 	enter() {
-		sounds.play(MusicName.BossTheme);
 		this.boss.reset();
 		this.player.reset();
 		this.map.reset();
-
+		this.selectBossTheme();
 		this.loadGame();
 
 		this.beforeUnloadHandler = () => this.saveGame();
 
 		window.addEventListener("beforeunload", this.beforeUnloadHandler);
+	}
+
+	selectBossTheme() {
+		const musicId = getRandomPositiveInteger(1,3);
+
+		switch(musicId) {
+			case 1:
+				sounds.play(MusicName.BossTheme);
+				break;
+			case 2:
+				sounds.play(MusicName.BossTheme1);
+				break;
+			case 3:
+				sounds.play(MusicName.BossTheme2);
+				break;
+		}
 	}
 
 	exit() {

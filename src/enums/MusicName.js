@@ -8,6 +8,8 @@ const MusicName = {
 	// PowerUp: 'powerup',
 	// Pipe: 'pipe',
 	BossTheme: 'BossTheme',
+	BossTheme1: 'BossTheme1',
+	BossTheme2: 'BossTheme2',
 	HallowedStepsOverworld: 'TitleMusic',
 	VictoryMusic: 'VictoryMusic',
 
