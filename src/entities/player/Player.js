@@ -72,7 +72,7 @@ export default class Player extends Entity {
         if(debugOptions.easyMode) {
             this.damageValue = 50;
         } else {
-            this.damageValue = 10;
+            this.damageValue = 9;
         }
 
         this.bindEffectSprites = loadPlayerSprites(images.get(ImageName.BindsSilkAnim), silkAnimConfig);
